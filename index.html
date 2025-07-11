@@ -333,42 +333,98 @@
 
         .result-section .section-title {
             color: var(--primary-appetizing); /* 결과 섹션 제목 색상 변경 */
+            font-size: 1.8em; /* 폰트 크기 키움 */
             text-shadow: 0 0 10px var(--shadow-warm-primary);
         }
 
+        /* 초기 안내 문구 스타일 (새로 추가) */
+        .initial-instruction-text {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.4em; /* 기본 폰트 크기 유지 */
+            color: var(--text-gray);
+            font-weight: 400;
+            margin: 40px auto; /* 충분한 여백 */
+            padding: 20px;
+            border: 1px solid var(--border-color-warm);
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            word-break: keep-all;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* 메뉴 텍스트 컨테이너 */
+        .menu-text-container {
+            background-color: rgba(255, 255, 255, 0.7); /* 반투명 흰색 배경 */
+            border-radius: 15px;
+            padding: 25px 20px; /* 패딩 추가 */
+            margin-bottom: 20px; /* 설명과의 간격 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary-appetizing); /* 강조 테두리 */
+            min-height: 100px; /* 최소 높이 설정 */
+            display: none; /* 초기에는 숨김 */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* 텍스트가 여러 줄일 때 중앙 정렬 */
+        }
+        /* JavaScript에서 'show' 클래스를 추가하여 표시 */
+        .menu-text-container.show {
+            display: flex;
+        }
+
+        /* 메뉴 설명 컨테이너 */
+        .explanation-container {
+            background-color: rgba(255, 255, 255, 0.5); /* 메뉴 텍스트 컨테이너보다 약간 더 투명 */
+            border-radius: 15px;
+            padding: 20px; /* 패딩 추가 */
+            margin-top: 0; /* 위쪽 마진 제거 (메뉴 텍스트 컨테이너가 이미 마진을 가짐) */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color-warm);
+            min-height: 120px; /* 최소 높이 설정 */
+            display: none; /* 초기에는 숨김 */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* 텍스트가 여러 줄일 때 중앙 정렬 */
+        }
+        /* JavaScript에서 'show' 클래스를 추가하여 표시 */
+        .explanation-container.show {
+            display: flex;
+        }
+
+        /* 애니메이션을 위한 기본 스타일 제거 및 새 클래스 정의 */
         .recommended-menu-text {
             font-family: 'Orbitron', sans-serif; /* 힙한 폰트 적용 */
-            font-size: 2.8em; /* 폰트 크기 키움 */
+            font-size: clamp(2.5em, 10vw, 8em); /* min: 2.5em, preferred: 10vw, max: 8em */
             font-weight: 700;
             color: var(--text-dark); /* 추천 메뉴 텍스트 색상 변경 */
-            margin-bottom: 20px;
-            min-height: 1.5em;
-            animation: fade-in-up 0.9s ease-out forwards;
+            margin: 0; /* 컨테이너가 패딩을 가지므로 마진 제거 */
+            min-height: 1.5em; /* 최소 높이 설정 */
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 은은한 텍스트 그림자 */
-            word-break: keep-all; /* 단어 잘림 방지 */
+            /* word-break: keep-all; */ /* 제거 */
+            overflow-wrap: break-word; /* 긴 단어 줄바꿈 허용 */
             line-height: 1.3;
+            opacity: 0; /* 초기 투명도 0으로 설정하여 애니메이션 시작 전 숨김 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+            width: 100%; /* 컨테이너 너비에 맞게 조정 */
         }
 
-        .recommended-menu-text.initial {
-            font-family: 'Noto Sans KR', sans-serif; /* 초기 상태는 일반 폰트 */
-            font-size: 1.4em; /* 초기 상태 텍스트 크기 */
-            color: var(--text-gray); /* 초기 상태 텍스트 색상 변경 */
-            font-weight: 400;
-            opacity: 1;
-            animation: none;
-            text-shadow: none;
-            word-break: keep-all; /* 단어 잘림 방지 */
-            line-height: 1.5; /* 줄 간격 조정 */
-        }
-
+        /* 에러 메시지 스타일 (메뉴 이름과 분리) */
         .recommended-menu-text.error {
             color: var(--error-color); /* 에러 색상 변경 */
-            font-size: 1.4em;
+            font-size: 1.8em; /* 에러 메시지는 메뉴 이름보다 작게 */
             font-weight: 600;
-            animation: fade-in-up 0.5s ease-out forwards;
+            animation: fade-in-up 0.5s ease-out forwards; /* 에러 메시지 애니메이션 */
             text-shadow: 0 0 8px rgba(211, 47, 47, 0.5);
             word-break: keep-all; /* 단어 잘림 방지 */
             line-height: 1.5; /* 줄 간격 조정 */
+            opacity: 1; /* 에러 메시지는 보이도록 */
+        }
+
+        /* 메뉴 이름 팝인 애니메이션 */
+        .recommended-menu-text.show-animation {
+            animation: menu-pop-in 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; /* Bounce effect */
+            opacity: 1; /* 애니메이션 시작 시 투명도 1로 설정 */
         }
 
         .menu-image {
@@ -391,16 +447,24 @@
         }
 
         .menu-explanation {
-            font-size: 1.2em; /* 폰트 크기 키움 */
+            font-size: 1.3em; /* 폰트 크기 키움 (기존 1.2em에서 더 크게) */
             color: var(--text-gray); /* 설명 텍스트 색상 변경 */
-            margin-top: 25px;
+            margin: 0; /* 컨테이너가 패딩을 가지므로 마진 제거 */
             line-height: 1.8;
-            animation: fade-in-up 1.1s ease-out forwards;
             min-height: 3em;
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             word-break: keep-all; /* 단어 잘림 방지 */
             padding: 0 10px; /* 좌우 패딩 추가 */
+            opacity: 0; /* 초기 투명도 0으로 설정하여 애니메이션 시작 전 숨김 */
         }
+
+        /* 메뉴 설명 페이드인-업 애니메이션 */
+        .menu-explanation.show-animation {
+            animation: fade-in-up 1.0s ease-out forwards;
+            animation-delay: 0.2s; /* 설명은 메뉴 이름보다 약간 늦게 나타남 */
+            opacity: 1; /* 애니메이션 시작 시 투명도 1로 설정 */
+        }
+
 
         /* 광고를 가운데 정렬하기 위한 ad-banner 스타일 */
         .ad-banner {
@@ -418,16 +482,24 @@
             margin: 0 auto !important; /* ad-banner의 flexbox가 처리하므로 필수는 아님 */
         }
 
-        @keyframes fade-in-up {
+        /* 새로운 애니메이션 키프레임 정의 */
+        @keyframes menu-pop-in {
+            0% { opacity: 0; transform: translateY(30px) scale(0.9); }
+            60% { opacity: 1; transform: translateY(-5px) scale(1.02); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes fade-in-up { /* 기존 fade-in-up 키프레임 유지 */
             0% { opacity: 0; transform: translateY(30px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* 댓글 섹션 스타일 */
+        /* 댓글 섹션 스타일 (HTML에 유지되지만 JS에서 조작하지 않음) */
         .comments-section {
             margin-top: 50px;
             padding-top: 30px;
             border-top: 1px dashed var(--border-color-warm);
+            display: none; /* 기본적으로 숨김 */
         }
 
         .comments-section .section-title {
@@ -589,7 +661,7 @@
                 font-size: 1.6em; /* 섹션 제목 크기 조정 */
             }
             .recommended-menu-text {
-                font-size: 2.2em; /* 추천 메뉴 텍스트 크기 조정 */
+                font-size: clamp(2em, 12vw, 6em); /* Smaller min/max for mobile */
             }
             .menu-explanation {
                 font-size: 1.1em; /* 설명 텍스트 크기 조정 */
@@ -621,7 +693,7 @@
             }
 
             .section-title {
-                font-size: 2em;
+                font-size: 1.6em; /* 섹션 제목 크기 조정 */
             }
 
             .category-grid {
@@ -679,7 +751,7 @@
             }
 
             .recommended-menu-text {
-                font-size: 3.5em;
+                font-size: clamp(3em, 10vw, 8em); /* Adjusted for tablet */
             }
 
             .menu-image {
@@ -701,10 +773,6 @@
 
             header h1 {
                 font-size: 4em;
-            }
-
-            .subtitle {
-                font-size: 1.3em;
             }
 
             .section-title {
@@ -750,7 +818,7 @@
             }
 
             .recommended-menu-text {
-                font-size: 4.5em;
+                font-size: clamp(3.5em, 8vw, 9em); /* Adjusted for desktop, slightly less aggressive vw */
             }
 
             .menu-image {
@@ -824,27 +892,47 @@
             <section class="result-section">
                 <h2 class="section-title">오늘의 점심 메뉴는?! <span class="emoji">🤩</span></h2>
                 <div class="spinner hidden" id="loading-spinner"></div>
-                <p id="recommended-menu" class="recommended-menu-text initial">카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆</p>
+                
+                <!-- 초기 안내 문구 (메뉴가 추천되기 전까지 표시) -->
+                <p id="initial-instruction" class="initial-instruction-text">카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆</p>
+
+                <!-- 메뉴 텍스트 컨테이너 (초기에는 숨김, 메뉴 추천 시 표시) -->
+                <div class="menu-text-container hidden">
+                    <p id="recommended-menu" class="recommended-menu-text"></p>
+                </div>
+
                 <img id="menu-image" class="menu-image hidden" alt="추천 메뉴 이미지">
-                <p id="menu-explanation" class="menu-explanation"></p>
+                
+                <!-- 메뉴 설명 컨테이너 (초기에는 숨김, 메뉴 추천 시 표시) -->
+                <div class="explanation-container hidden">
+                    <p id="menu-explanation" class="menu-explanation"></p>
+                </div>
             </section>
-    <div class="ad-banner">
-        <ins class="kakao_ad_area" style="display:none;"
-             data-ad-unit="DAN-xzgVigY4TzXJ8uxZ"
-             data-ad-width="320"
-             data-ad-height="100"></ins>
-    </div>
-    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        <div class="ad-banner">
+            <ins class="kakao_ad_area" style="display:none;"
+                data-ad-unit="DAN-xzgVigY4TzXJ8uxZ"
+                data-ad-width="320"
+                data-ad-height="100"></ins>
+        </div>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+
+        <section class="comments-section">
+            <h2 class="section-title">메뉴에 대한 한마디! <span class="emoji">💬</span></h2>
+            <div class="comment-input-group">
+                <textarea id="comment-text" placeholder="메뉴에 대한 한마디를 남겨주세요!" rows="4" disabled></textarea>
+                <button id="submit-comment-btn" disabled>댓글 남기기 <span class="emoji">✍️</span></button>
+            </div>
+            <div class="comment-list" id="comments-list">
+                <p class="no-comments">아직 댓글이 없습니다. 첫 댓글을 남겨주세요! 😊</p>
+            </div>
+        </section>
 
         <footer>
             <p>&copy; 2025 점심 메뉴 추천기. All rights reserved. <span class="emoji">🎮</span></p>
         </footer>
     </div>
     <script>
-        // 이 작은 인라인 스크립트는 주요 애플리케이션 로직을 로드하려고 시도합니다.
-        // CSP 위반 가능성을 줄이기 위해 최소한으로 유지됩니다.
-
-        // --- Existing Menu Recommendation Logic ---
+        // --- 메뉴 추천 데이터 ---
         const menus = {
             korean: [
                 { name: "김치찌개", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "쌀쌀하거나 비 오는 날, 매콤하고 뜨끈한 김치찌개는 진리! 😋 얼큰한 국물에 밥 한 공기 뚝딱하면 스트레스 날아가는 K-힐링 각!" },
@@ -863,7 +951,7 @@
                 { name: "콩국수", season: ["summer"], weather: ["hot", "sunny"], explanation: "무더운 여름, 시원한 콩국수 한 그릇으로 더위를 잊어봐요! ❄️ 고소하고 시원한 국물이 입맛 돋우는 여름 필수템." },
                 { name: "냉면", season: ["summer"], weather: ["hot", "sunny"], explanation: "여름엔 역시 냉면이죠! 🍜 살얼음 동동 시원한 육수에 아삭한 무김치까지! 더위 한 방에 날리는 시원함!" },
                 { name: "초계국수", season: ["summer"], weather: ["hot", "sunny"], explanation: "더운 여름, 새콤달콤 시원한 초계국수로 입맛 살려봐요! 🐔 쫄깃한 면에 닭고기까지 든든한 여름 별미!" },
-                { name: "김치찜", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "푹 익은 김치에 부드러운 고기가 환상의 궁합! 🍚 김치찜은 밥도둑 그 자체! 쌀쌀한 날씨에 따뜻하게 즐겨봐요." },
+                { name: "김치찜", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "푹 익은 김치에 부드러운 고기가 환상의 궁합! � 김치찜은 밥도둑 그 자체! 쌀쌀한 날씨에 따뜻하게 즐겨봐요." },
                 { name: "찜닭", season: ["all"], weather: ["all", "sunny"], explanation: "남녀노소 누구나 좋아하는 찜닭! 🥢 달콤 짭짤한 양념에 밥 비벼 먹으면 꿀맛 보장! 점심 회식 메뉴로도 좋아요." },
                 { name: "아구찜", season: ["all"], weather: ["all", "sunny"], explanation: "매콤한 양념에 쫄깃한 아구살이 가득! 아구찜은 스트레스 해소에 최고! 🌶️ 콩나물 아삭한 식감도 놓칠 수 없죠." },
                 { name: "보쌈", season: ["all"], weather: ["all", "sunny"], explanation: "야들야들 부드러운 보쌈은 사랑이죠! 🐷 김치에 싸 먹으면 꿀맛! 든든하고 고급스러운 점심 메뉴로 추천해요." },
@@ -882,7 +970,7 @@
                 { name: "콩나물국밥", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "시원하고 개운한 콩나물국밥은 해장에도 최고! 🍲 속이 확 풀리는 뜨끈한 국물로 든든하게 시작해요." },
                 { name: "묵사발", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "탱글탱글 도토리묵에 시원한 육수! 🍃 더운 여름, 시원하고 가볍게 즐기기 좋은 웰빙 메뉴예요." },
                 { name: "바지락칼국수", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "시원한 바지락 육수에 쫄깃한 면발! 🍜 비 오는 날이나 쌀쌀한 날씨에 딱 어울리는 칼국수예요." },
-                { name: "들깨칼국수", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "고소하고 진한 들깨 칼국수는 쌀쌀한 날씨에 딱! � 영양까지 챙기는 든든한 한 끼예요." },
+                { name: "들깨칼국수", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "고소하고 진한 들깨 칼국수는 쌀쌀한 날씨에 딱! 🌿 영양까지 챙기는 든든한 한 끼예요." },
                 { name: "만둣국", season: ["winter", "all"], weather: ["cold", "snowy", "all"], explanation: "겨울엔 역시 만둣국! 🥟 뽀얀 국물에 속 꽉 찬 만두가 듬뿍! 따뜻하고 든든하게 즐겨봐요." },
                 { name: "순대볶음", season: ["all"], weather: ["all", "sunny"], explanation: "쫄깃한 순대에 매콤한 양념이 찰떡궁합! 🍢 밥반찬으로도 최고! 스트레스 해소에 딱!" },
                 { name: "닭볶음탕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "매콤달콤 닭볶음탕은 밥도둑! 🍗 얼큰한 국물에 닭고기, 감자까지! 든든하게 즐겨봐요." },
@@ -1027,7 +1115,7 @@
                 { name: "함박 스테이크", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 함박 스테이크에 달콤한 소스! 🍳 남녀노소 누구나 좋아하는 든든한 점심 메뉴예요." },
                 { name: "찹스테이크", season: ["all"], weather: ["all", "sunny"], explanation: "한입 크기로 썰린 스테이크와 채소가 듬뿍! 🥩 달콤 짭짤한 소스에 밥 비벼 먹으면 꿀맛!" },
                 { name: "폭립", season: ["all"], weather: ["all", "sunny"], explanation: "달콤한 바비큐 소스가 발린 부드러운 폭립! 🍖 손으로 잡고 뜯는 재미까지! 오늘 점심은 푸짐하게!" },
-                { name: "치킨 시저 랩", season: ["all"], weather: ["all", "sunny"], explanation: "신선한 채소와 치킨, 시저 드레싱이 또띠아에 쏙! 🌯 간편하면서도 든든하게 즐길 수 있는 메뉴예요." },
+                { name: "치킨 시저 랩", season: ["all"], weather: ["all", "sunny"], explanation: "신선한 채소와 치킨, 시저 드레싱이 또띠아에 쏙! 🌯 간편하면서도 든든한 메뉴예요." },
                 { name: "브런치 플래터", season: ["all"], weather: ["all", "sunny"], explanation: "다양한 브런치 메뉴를 한 번에! 🍳 주말 여유로운 점심에 딱! 커피와 함께 즐겨봐요." },
                 { name: "에그 베네딕트", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 수란과 홀랜다이즈 소스의 환상 조합! 🍳 고급스러운 브런치 메뉴로 특별한 점심을!" },
                 { name: "프렌치 토스트", season: ["all"], weather: ["all", "sunny"], explanation: "달콤하고 부드러운 프렌치 토스트! 🍞 시럽과 과일을 곁들여 달콤한 점심을 즐겨봐요." },
@@ -1071,8 +1159,6 @@
                 { name: "콘치즈", season: ["all"], weather: ["all", "sunny"], explanation: "고소한 치즈에 달콤한 옥수수가 듬뿍! 🌽 맥주 안주로도, 간식으로도 좋아요." },
                 { name: "감자튀김", season: ["all"], weather: ["all", "sunny"], explanation: "바삭하고 고소한 감자튀김은 언제나 옳죠! 🍟 케첩에 찍어 먹으면 꿀맛!" },
                 { name: "치즈스틱", season: ["all"], weather: ["all", "sunny"], explanation: "쭉쭉 늘어나는 치즈스틱은 사랑! 🧀 겉바속촉 치즈스틱으로 행복한 점심을!" },
-                { name: "팝콘 치킨", season: ["all"], weather: ["all", "sunny"], explanation: "한입 크기 팝콘 치킨은 간편하게 즐기기 좋아요! 🍗 맥주 안주로도, 간식으로도 최고예요." },
-                { name: "치킨 너겟", season: ["all"], weather: ["all", "sunny"], explanation: "바삭하고 고소한 치킨 너겟은 아이들도 좋아하는 메뉴! 🐥 소스에 찍어 먹으면 꿀맛!" },
                 { name: "새우 버거", season: ["all"], weather: ["all", "sunny"], explanation: "통통한 새우 패티에 타르타르 소스! 🍔 새우 버거는 새우 덕후들에게 강추!" },
                 { name: "불고기 버거", season: ["all"], weather: ["all", "sunny"], explanation: "달콤 짭짤한 불고기 패티에 신선한 채소! 🍔 한국인의 입맛에 딱 맞는 불고기 버거!" },
                 { name: "치킨 버거", season: ["all"], weather: ["all", "sunny"], explanation: "바삭한 치킨 패티에 신선한 채소! 🍔 든든하고 맛있는 치킨 버거로 점심 해결!" },
@@ -1088,7 +1174,7 @@
             ]
         };
 
-        // Required DOM elements
+        // 필요한 DOM 요소들
         const categoryButtons = document.querySelectorAll('.category-btn');
         const seasonSelect = document.getElementById('season-select');
         const weatherSelect = document.getElementById('weather-select');
@@ -1096,109 +1182,127 @@
         const resetButton = document.getElementById('reset-btn');
         const recommendedMenuDisplay = document.getElementById('recommended-menu');
         const menuExplanationDisplay = document.getElementById('menu-explanation');
-        const menuImageDisplay = document.getElementById('menu-image');
-        const loadingSpinner = document.getElementById('loading-spinner'); // Get spinner element
+        const menuImageDisplay = document.getElementById('menu-image'); // 이미지 요소는 유지하되 항상 숨김 처리
+
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const initialInstruction = document.getElementById('initial-instruction'); // 새로 추가된 안내 문구 요소
+        const menuTextContainer = document.querySelector('.menu-text-container'); // 메뉴 이름 컨테이너
+        const explanationContainer = document.querySelector('.explanation-container'); // 메뉴 설명 컨테이너
+
+
+        // 댓글 섹션 관련 DOM 요소 (HTML에는 남아있지만 JS 로직에서는 사용하지 않음)
+        const commentsSection = document.getElementById('comments-section');
+        const commentTextInput = document.getElementById('comment-text');
+        const submitCommentBtn = document.getElementById('submit-comment-btn');
+        const commentsList = document.getElementById('comments-list');
+
 
         let currentSelectedCategory = '';
-        let currentRecommendedMenu = null; // Stores the currently recommended menu item
+        let currentRecommendedMenu = null; // 현재 추천된 메뉴 아이템을 저장
 
-        // Function to set initial state
+        // 초기 상태 설정 함수
         function initializeState() {
             currentSelectedCategory = '';
             categoryButtons.forEach(btn => {
-                btn.classList.remove('active');
-                btn.disabled = false; // Enable buttons
+                btn.classList.remove('active'); // 모든 카테고리 버튼의 활성화 상태 해제
+                btn.disabled = false; // 버튼 활성화
             });
             seasonSelect.value = '';
-            seasonSelect.disabled = false; // Enable dropdown
+            seasonSelect.disabled = false; // 드롭다운 활성화
             weatherSelect.value = '';
-            weatherSelect.disabled = false; // Enable dropdown
+            weatherSelect.disabled = false; // 드롭다운 활성화
 
-            recommendedMenuDisplay.textContent = "카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆";
-            recommendedMenuDisplay.className = 'recommended-menu-text initial'; // Reset to initial styling
+            // 초기 안내 문구 표시, 메뉴 및 설명 컨테이너 숨김
+            initialInstruction.classList.remove('hidden');
+            menuTextContainer.classList.add('hidden');
+            menuTextContainer.classList.remove('show'); // display: flex 제거
+            explanationContainer.classList.add('hidden');
+            explanationContainer.classList.remove('show'); // display: flex 제거
+
+            recommendedMenuDisplay.textContent = ""; // 메뉴 텍스트 비움
+            recommendedMenuDisplay.className = 'recommended-menu-text'; // 애니메이션 클래스 등 초기화
             menuExplanationDisplay.textContent = "";
-            menuImageDisplay.src = ""; // Clear image source
-            menuImageDisplay.classList.add('hidden'); // Hide image
-            menuImageDisplay.classList.remove('fade-in'); // Remove fade-in animation
+            menuExplanationDisplay.className = 'menu-explanation'; // 애니메이션 클래스 등 초기화
+
+            menuImageDisplay.src = ""; // 이미지 소스 초기화
+            menuImageDisplay.classList.add('hidden'); // 이미지 숨김 유지
+            menuImageDisplay.classList.remove('fade-in'); // 페이드인 애니메이션 제거
 
             searchButton.classList.remove('hidden');
-            searchButton.disabled = false; // Enable 'Get Recommendation' button
+            searchButton.disabled = false; // '메뉴 추천받기' 버튼 활성화
             resetButton.classList.add('hidden');
 
-            loadingSpinner.classList.add('hidden'); // Ensure spinner is hidden on reset
+            loadingSpinner.classList.add('hidden'); // 스피너 숨김
 
-            currentRecommendedMenu = null; // Clear previously recommended menu
-            updateSearchButtonState(); // Update search button state based on current selections
+            currentRecommendedMenu = null; // 이전에 추천된 메뉴 초기화
 
-            // Hide comments section and clear comments
-            commentsSection.style.display = 'none';
-            commentTextInput.value = '';
-            submitCommentBtn.disabled = true;
-            clearComments(); // Clear displayed comments
-            if (unsubscribeComments) { // Unsubscribe from previous menu's comments
-                unsubscribeComments();
-                unsubscribeComments = null;
-            }
+            // 댓글 섹션 관련 UI 숨김 (HTML에는 남아있지만 JS에서 조작하지 않음)
+            if (commentsSection) commentsSection.style.display = 'none';
+            if (commentTextInput) commentTextInput.value = '';
+            if (submitCommentBtn) submitCommentBtn.disabled = true;
+            if (commentsList) commentsList.innerHTML = '<p class="no-comments">아직 댓글이 없습니다. 첫 댓글을 남겨주세요! 😊</p>'; // 댓글 목록 비우기
+
+            updateSearchButtonState(); // 현재 선택 상태에 따라 검색 버튼 상태 업데이트
         }
 
-        // Function to get a random menu based on filters
+        // 필터에 따라 랜덤 메뉴를 가져오는 함수
         function getRandomMenu(selectedCategory, selectedSeason, selectedWeather) {
             let categorySpecificMenus = [];
 
-            // Step 1: Category filtering
+            // 1단계: 카테고리 필터링
             if (selectedCategory === 'any') {
-                categorySpecificMenus = Object.values(menus).flat(); // Flatten all categories
+                categorySpecificMenus = Object.values(menus).flat(); // 모든 카테고리 메뉴를 평탄화
             } else if (selectedCategory in menus) {
                 categorySpecificMenus = menus[selectedCategory];
             } else {
-                return null; // Invalid category
+                return null; // 유효하지 않은 카테고리
             }
 
             if (categorySpecificMenus.length === 0) {
-                return null; // No menus in this category
+                return null; // 해당 카테고리에 메뉴 없음
             }
 
-            // Prepare scores for filtering. Higher score means better match.
-            // Exact match (e.g., season: ["summer"] and selectedSeason: "summer") gets 2 points.
-            // "all" match (e.g., season: ["all"] and selectedSeason: "summer") gets 1 point.
-            // Penalize if "all" is selected but menu specifically isn't "all" (to prefer specific matches)
+            // 필터링을 위한 점수 준비. 점수가 높을수록 더 잘 맞는 메뉴.
+            // 정확한 일치 (예: season: ["summer"]와 selectedSeason: "summer")는 2점.
+            // "all" 일치 (예: season: ["all"]와 selectedSeason: "summer")는 1점.
+            // "all"이 선택되었지만 메뉴가 "all"이 아닌 경우 약간의 페널티 (특정 일치를 선호하기 위해)
             let bestMatchingMenus = [];
             let maxScore = -1;
 
             categorySpecificMenus.forEach(menu => {
                 let score = 0;
 
-                // Season scoring
+                // 계절 점수 매기기
                 if (menu.season.includes(selectedSeason)) {
                     score += 2;
                 } else if (menu.season.includes("all")) {
                     score += 1;
                 }
                 if (selectedSeason === 'all' && !menu.season.includes("all")) {
-                    score -= 0.5; // Slightly penalize if 'all' season is picked but menu isn't 'all'
+                    score -= 0.5; // 'all' 계절이 선택되었지만 메뉴가 'all'이 아닌 경우 약간의 페널티
                 }
 
-                // Weather scoring
+                // 날씨 점수 매기기
                 if (menu.weather.includes(selectedWeather)) {
                     score += 2;
                 } else if (menu.weather.includes("all")) {
                     score += 1;
                 }
                 if (selectedWeather === 'all' && !menu.weather.includes("all")) {
-                    score -= 0.5; // Slightly penalize if 'all' weather is picked but menu isn't 'all'
+                    score -= 0.5; // 'all' 날씨가 선택되었지만 메뉴가 'all'이 아닌 경우 약간의 페널티
                 }
 
                 if (score > maxScore) {
                     maxScore = score;
-                    bestMatchingMenus = [menu]; // Reset and add new best match
-                } else if (score === maxScore && score >= 0) { // Add to list if same best score and valid score
+                    bestMatchingMenus = [menu]; // 새롭게 가장 잘 맞는 메뉴로 리셋
+                } else if (score === maxScore && score >= 0) { // 동일한 최고 점수이고 유효한 점수인 경우 목록에 추가
                     bestMatchingMenus.push(menu);
                 }
             });
 
-            // If no good matches, or if only penalized matches exist, fallback to broader matches
+            // 좋은 일치 메뉴가 없거나 페널티 받은 메뉴만 있는 경우, 더 넓은 범위의 메뉴로 대체
             if (bestMatchingMenus.length === 0 || maxScore < 0) {
-                // Fallback: Just get any menu from the category, prioritizing "all" conditions
+                // 대체: 카테고리 내에서 "all" 조건을 우선시하여 아무 메뉴나 가져옴
                 let fallbackMenus = categorySpecificMenus.filter(menu =>
                     (menu.season.includes(selectedSeason) || menu.season.includes("all") || selectedSeason === 'all') &&
                     (menu.weather.includes(selectedWeather) || menu.weather.includes("all") || selectedWeather === 'all')
@@ -1206,7 +1310,7 @@
                 if (fallbackMenus.length > 0) {
                     bestMatchingMenus = fallbackMenus;
                 } else {
-                    // Ultimate fallback: if nothing matches, just pick a random one from the category
+                    // 최종 대체: 아무것도 일치하지 않으면 해당 카테고리에서 무작위로 하나 선택
                     bestMatchingMenus = categorySpecificMenus;
                 }
             }
@@ -1219,7 +1323,7 @@
             return bestMatchingMenus[randomIndex];
         }
 
-        // Function to update the state of the search button
+        // 검색 버튼 상태 업데이트 함수
         function updateSearchButtonState() {
             const isCategorySelected = !!currentSelectedCategory;
             const isSeasonSelected = !!seasonSelect.value;
@@ -1227,16 +1331,16 @@
 
             if (isCategorySelected && isSeasonSelected && isWeatherSelected) {
                 searchButton.disabled = false;
-                searchButton.classList.remove('disabled-visual'); // Optional: remove any visual disabled class if you have one
+                searchButton.classList.remove('disabled-visual'); // 시각적 비활성화 클래스 제거 (있다면)
             } else {
                 searchButton.disabled = true;
-                searchButton.classList.add('disabled-visual'); // Optional: add a visual disabled class
+                searchButton.classList.add('disabled-visual'); // 시각적 비활성화 클래스 추가 (있다면)
             }
         }
 
-        // Function to display recommendation and fetch image
+        // 추천을 표시하는 함수 (이미지 불러오기 기능 제거됨)
         async function displayRecommendation() {
-            // Prevent duplicate recommendations if already showing one
+            // 이미 추천이 표시된 경우 중복 추천 방지
             if (currentRecommendedMenu) {
                 return;
             }
@@ -1244,10 +1348,14 @@
             const selectedSeason = seasonSelect.value;
             const selectedWeather = weatherSelect.value;
 
-            // Input validation
+            // 입력 유효성 검사
             if (!currentSelectedCategory) {
+                initialInstruction.classList.add('hidden'); // 안내 문구 숨김
+                menuTextContainer.classList.remove('hidden'); // 에러 메시지 표시를 위해 컨테이너 활성화
+                menuTextContainer.classList.add('show');
+                explanationContainer.classList.add('hidden'); // 설명은 숨김
                 recommendedMenuDisplay.textContent = "먼저 카테고리를 선택해주세요! 😬";
-                recommendedMenuDisplay.className = 'recommended-menu-text error';
+                recommendedMenuDisplay.className = 'recommended-menu-text error'; // 에러 스타일 적용
                 menuExplanationDisplay.textContent = "";
                 menuImageDisplay.classList.add('hidden');
                 menuImageDisplay.classList.remove('fade-in');
@@ -1256,8 +1364,12 @@
             }
 
             if (selectedSeason === "" || selectedWeather === "") {
+                initialInstruction.classList.add('hidden'); // 안내 문구 숨김
+                menuTextContainer.classList.remove('hidden'); // 에러 메시지 표시를 위해 컨테이너 활성화
+                menuTextContainer.classList.add('show');
+                explanationContainer.classList.add('hidden'); // 설명은 숨김
                 recommendedMenuDisplay.textContent = "계절과 날씨를 모두 선택해주세요! 📅☀️";
-                recommendedMenuDisplay.className = 'recommended-menu-text error';
+                recommendedMenuDisplay.className = 'recommended-menu-text error'; // 에러 스타일 적용
                 menuExplanationDisplay.textContent = "";
                 menuImageDisplay.classList.add('hidden');
                 menuImageDisplay.classList.remove('fade-in');
@@ -1265,278 +1377,160 @@
                 return;
             }
 
-            // Hide previous elements and show spinner
-            recommendedMenuDisplay.classList.remove('fade-in', 'error', 'initial');
-            menuExplanationDisplay.classList.remove('fade-in');
-            menuImageDisplay.classList.add('hidden');
-            menuImageDisplay.classList.remove('fade-in'); // Ensure no stale animation state
-            
-            loadingSpinner.classList.remove('hidden'); // Show spinner
+            // 로딩 전 UI 상태 변경
+            initialInstruction.classList.add('hidden'); // 초기 안내 문구 숨김
+            menuTextContainer.classList.add('hidden'); // 메뉴 컨테이너 숨김 (로딩 중)
+            explanationContainer.classList.add('hidden'); // 설명 컨테이너 숨김 (로딩 중)
 
-            // Disable all input elements during loading
+            recommendedMenuDisplay.classList.remove('show-animation'); // 애니메이션 클래스 제거
+            menuExplanationDisplay.classList.remove('show-animation'); // 애니메이션 클래스 제거
+            recommendedMenuDisplay.style.opacity = '0'; // 애니메이션 시작 전 투명도 0으로 설정
+            menuExplanationDisplay.style.opacity = '0'; // 애니메이션 시작 전 투명도 0으로 설정
+
+            menuImageDisplay.classList.add('hidden'); // 이미지 숨김 유지
+            menuImageDisplay.classList.remove('fade-in');
+
+            loadingSpinner.classList.remove('hidden'); // 스피너 표시
+
+            // 로딩 중 모든 입력 요소 비활성화
             categoryButtons.forEach(btn => btn.disabled = true);
             seasonSelect.disabled = true;
             weatherSelect.disabled = true;
             searchButton.disabled = true;
 
-            // Perform menu recommendation
+            // 로딩 지연 시뮬레이션 (선택 사항, 사용자 경험을 위해 좋음)
+            await new Promise(resolve => setTimeout(resolve, 500)); // 0.5초 대기
+
+            // 메뉴 추천 수행
             const recommendedMenuItem = getRandomMenu(currentSelectedCategory, selectedSeason, selectedWeather);
 
-            // Force reflow for animation restart if needed (though fade-in handles this)
+            // 애니메이션 재시작을 위한 강제 리플로우
             void recommendedMenuDisplay.offsetWidth;
             void menuExplanationDisplay.offsetWidth;
-            void menuImageDisplay.offsetWidth;
 
             if (recommendedMenuItem) {
                 currentRecommendedMenu = recommendedMenuItem;
 
-                // Backend server URL for image search
-                // NOTE: This will not work in Canvas preview as it tries to fetch from localhost:5000
-                // For a fully functional preview, a mock API or static image handling would be needed.
-                const backendUrl = `http://localhost:5000/get-menu-image?menu=${encodeURIComponent(currentRecommendedMenu.name)}`;
+                loadingSpinner.classList.add('hidden'); // 추천 후 스피너 숨김
 
-                try {
-                    const response = await fetch(backendUrl);
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.message || `Server responded with error: ${response.status}`);
-                    }
-                    const data = await response.json();
-
-                    if (data.imageUrl) {
-                        menuImageDisplay.src = data.imageUrl;
-                        menuImageDisplay.alt = currentRecommendedMenu.name;
-                        menuImageDisplay.classList.remove('hidden');
-                        menuImageDisplay.classList.add('fade-in');
-                        console.log(`Menu '${currentRecommendedMenu.name}' image loaded successfully: ${data.imageUrl}`);
-                    } else {
-                        menuImageDisplay.src = 'https://placehold.co/200x150/FFDDDD/FF0000?text=이미지+없음'; // Placeholder for "image not found"
-                        menuImageDisplay.alt = '이미지를 찾을 수 없습니다.';
-                        menuImageDisplay.classList.remove('hidden');
-                        menuImageDisplay.classList.add('fade-in');
-                        console.warn(`Could not find image for menu '${currentRecommendedMenu.name}' or server response lacked an image URL.`);
-                    }
-                } catch (error) {
-                    console.error('Error loading image:', error);
-                    menuImageDisplay.src = 'https://placehold.co/200x150/DDDDFF/0000FF?text=이미지+로드+실패'; // Placeholder for "image load failed"
-                    menuImageDisplay.alt = '이미지 로드 실패';
-                    menuImageDisplay.classList.remove('hidden');
-                    menuImageDisplay.classList.add('fade-in');
-                } finally {
-                    loadingSpinner.classList.add('hidden'); // Hide spinner after image fetch attempt
-                    // Re-enable elements (only if we are moving to the reset state)
-                    // Note: Elements stay disabled until reset button is clicked to prevent re-picking.
-                }
+                // 메뉴 컨테이너와 설명 컨테이너 표시
+                menuTextContainer.classList.remove('hidden');
+                menuTextContainer.classList.add('show'); // Flexbox로 표시
+                explanationContainer.classList.remove('hidden');
+                explanationContainer.classList.add('show'); // Flexbox로 표시
 
                 recommendedMenuDisplay.textContent = currentRecommendedMenu.name;
+                recommendedMenuDisplay.className = 'recommended-menu-text show-animation'; // 애니메이션 클래스 적용
                 menuExplanationDisplay.textContent = currentRecommendedMenu.explanation;
+                menuExplanationDisplay.className = 'menu-explanation show-animation'; // 애니메이션 클래스 적용
 
-                recommendedMenuDisplay.classList.add('fade-in');
-                menuExplanationDisplay.classList.add('fade-in');
+                searchButton.classList.add('hidden'); // '메뉴 추천받기' 버튼 숨김
+                resetButton.classList.remove('hidden'); // '다시 선택하기' 버튼 표시
 
-                searchButton.classList.add('hidden'); // Hide "Get Recommendation" button
-                resetButton.classList.remove('hidden'); // Show "Reset" button
-
-                // Show comments section and enable comment input
-                commentsSection.style.display = 'block';
-                commentTextInput.disabled = false;
-                submitCommentBtn.disabled = false;
-                loadComments(currentRecommendedMenu.name); // Load comments for the recommended menu
-
+                // 댓글 섹션 관련 기능은 제거되었으므로 주석 처리
+                // if (commentsSection) commentsSection.style.display = 'block';
+                // if (commentTextInput) commentTextInput.disabled = false;
+                // if (submitCommentBtn) submitCommentBtn.disabled = false;
             } else {
-                // No menu found for the given criteria
-                loadingSpinner.classList.add('hidden'); // Hide spinner even if no menu
+                // 주어진 조건에 맞는 메뉴를 찾을 수 없음
+                loadingSpinner.classList.add('hidden'); // 메뉴를 찾지 못해도 스피너 숨김
+                initialInstruction.classList.add('hidden'); // 초기 안내 문구 숨김
+                menuTextContainer.classList.remove('hidden'); // 에러 메시지는 메뉴 컨테이너에 표시
+                menuTextContainer.classList.add('show');
+                explanationContainer.classList.add('hidden'); // 설명은 숨김
+
                 recommendedMenuDisplay.textContent = "이런! 추천할 메뉴가 정말 없네요... 😅";
-                recommendedMenuDisplay.classList.add('error');
+                recommendedMenuDisplay.className = 'recommended-menu-text error'; // 에러 스타일 적용
                 menuExplanationDisplay.textContent = "선택하신 조건에 맞는 메뉴가 현재 데이터에 부족합니다. 다른 조합을 선택해주세요. 🧐";
-                menuImageDisplay.classList.add('hidden');
+                menuExplanationDisplay.className = 'menu-explanation'; // 기본 스타일로 리셋
+                menuExplanationDisplay.style.opacity = '1'; // 에러 시 설명 바로 표시
+
+                menuImageDisplay.classList.add('hidden'); // 이미지 숨김 유지
                 menuImageDisplay.classList.remove('fade-in');
                 menuImageDisplay.src = "";
                 menuImageDisplay.alt = '추천 메뉴 없음';
 
-                // Re-enable inputs if no menu was found, allowing user to try again
+                // 메뉴를 찾지 못한 경우 입력 요소 다시 활성화 (사용자가 다시 시도할 수 있도록)
                 categoryButtons.forEach(btn => btn.disabled = false);
                 seasonSelect.disabled = false;
                 weatherSelect.disabled = false;
-                searchButton.disabled = false; // Re-enable for new attempt
-                resetButton.classList.add('hidden'); // Keep reset button hidden
-                updateSearchButtonState(); // Ensure button state is correct after error
+                searchButton.disabled = false; // 새 시도를 위해 다시 활성화
+                resetButton.classList.add('hidden'); // 리셋 버튼은 숨김 유지
+                updateSearchButtonState(); // 오류 후 버튼 상태가 올바른지 확인
 
-                // Hide comments section if no menu is found
-                commentsSection.style.display = 'none';
-                commentTextInput.value = '';
-                submitCommentBtn.disabled = true;
-                clearComments();
-                if (unsubscribeComments) {
-                    unsubscribeComments();
-                    unsubscribeComments = null;
-                }
+                // 댓글 섹션 관련 기능은 제거되었으므로 주석 처리
+                // if (commentsSection) commentsSection.style.display = 'none';
+                // if (commentTextInput) commentTextInput.value = '';
+                // if (submitCommentBtn) submitCommentBtn.disabled = true;
             }
         }
 
-        // Event Listeners
+        // 이벤트 리스너 (카테고리, 계절, 날씨 변경 시 초기화)
         categoryButtons.forEach(button => {
             button.addEventListener('click', () => {
-                if (button.disabled) return; // Prevent action if disabled
+                if (button.disabled) return; // 비활성화된 경우 동작 방지
 
-                if (currentSelectedCategory === button.dataset.category) {
-                    button.classList.remove('active');
-                    currentSelectedCategory = '';
-                } else {
-                    categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    currentSelectedCategory = button.dataset.category;
-                }
-                // Reset displayed content if category selection changes AND no menu is currently recommended
-                if (!currentRecommendedMenu) {
-                    recommendedMenuDisplay.textContent = "카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆";
-                    recommendedMenuDisplay.className = 'recommended-menu-text initial';
-                    menuExplanationDisplay.textContent = "";
-                    menuImageDisplay.classList.add('hidden');
-                    menuImageDisplay.src = "";
-                }
-                // Hide comments section and clear comments if category changes before recommendation
-                commentsSection.style.display = 'none';
-                commentTextInput.value = '';
-                submitCommentBtn.disabled = true;
-                clearComments();
-                if (unsubscribeComments) {
-                    unsubscribeComments();
-                    unsubscribeComments = null;
-                }
-                updateSearchButtonState(); // Update button state
+                // 기존 활성화된 버튼의 active 클래스 제거
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // 현재 클릭된 버튼에 active 클래스 추가
+                button.classList.add('active');
+                currentSelectedCategory = button.dataset.category;
+                
+                // 메뉴 추천 결과 영역 초기화 (안내 문구 다시 표시)
+                initialInstruction.classList.remove('hidden');
+                menuTextContainer.classList.add('hidden');
+                explanationContainer.classList.add('hidden');
+                recommendedMenuDisplay.textContent = "";
+                menuExplanationDisplay.textContent = "";
+                menuImageDisplay.classList.add('hidden');
+                currentRecommendedMenu = null; // 추천 메뉴 초기화
+
+                updateSearchButtonState(); // 버튼 상태 업데이트
             });
         });
 
         seasonSelect.addEventListener('change', () => {
-            if (!currentRecommendedMenu) {
-                recommendedMenuDisplay.textContent = "카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆";
-                recommendedMenuDisplay.className = 'recommended-menu-text initial';
-                menuExplanationDisplay.textContent = "";
-                menuImageDisplay.classList.add('hidden');
-                menuImageDisplay.src = "";
-            }
-            // Hide comments section and clear comments if filter changes before recommendation
-            commentsSection.style.display = 'none';
-            commentTextInput.value = '';
-            submitCommentBtn.disabled = true;
-            clearComments();
-            if (unsubscribeComments) {
-                unsubscribeComments();
-                unsubscribeComments = null;
-            }
-            updateSearchButtonState(); // Update button state
+            // 드롭다운 변경 시 추천 결과 영역 초기화
+            initialInstruction.classList.remove('hidden');
+            menuTextContainer.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            recommendedMenuDisplay.textContent = "";
+            menuExplanationDisplay.textContent = "";
+            menuImageDisplay.classList.add('hidden');
+            currentRecommendedMenu = null; // 추천 메뉴 초기화
+            
+            updateSearchButtonState(); // 버튼 상태 업데이트
         });
 
         weatherSelect.addEventListener('change', () => {
-            if (!currentRecommendedMenu) {
-                recommendedMenuDisplay.textContent = "카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆";
-                recommendedMenuDisplay.className = 'recommended-menu-text initial';
-                menuExplanationDisplay.textContent = "";
-                menuImageDisplay.classList.add('hidden');
-                menuImageDisplay.src = "";
-            }
-            // Hide comments section and clear comments if filter changes before recommendation
-            commentsSection.style.display = 'none';
-            commentTextInput.value = '';
-            submitCommentBtn.disabled = true;
-            clearComments();
-            if (unsubscribeComments) {
-                unsubscribeComments();
-                unsubscribeComments = null;
-            }
-            updateSearchButtonState(); // Update button state
+            // 드롭다운 변경 시 추천 결과 영역 초기화
+            initialInstruction.classList.remove('hidden');
+            menuTextContainer.classList.add('hidden');
+            explanationContainer.classList.add('hidden');
+            recommendedMenuDisplay.textContent = "";
+            menuExplanationDisplay.textContent = "";
+            menuImageDisplay.classList.add('hidden');
+            currentRecommendedMenu = null; // 추천 메뉴 초기화
+
+            updateSearchButtonState(); // 버튼 상태 업데이트
         });
 
-        searchButton.addEventListener('click', displayRecommendation); // Only recommend on button click
+        searchButton.addEventListener('click', displayRecommendation); // 버튼 클릭 시에만 추천
+
         resetButton.addEventListener('click', () => {
-    window.location.reload(); // 이 한 줄로 바꾸시면 됩니다
-});
-        submitCommentBtn.addEventListener('click', addComment); // Add comment on button click
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            await authenticateAnonymously(); // Authenticate Firebase first
-            initializeState();
-            updateSearchButtonState(); // Set initial state of search button
+            window.location.reload(); // 페이지 새로고침으로 초기화
         });
-        // 모바일 기기 감지 함수 (기존에 없었다면 추가)
-// 모바일 기기 감지 함수 (이 코드가 `<script>` 태그 안에 이미 없다면 이 위치에 추가하세요)
-function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
 
-// searchBtn 클릭 이벤트 리스너
-searchBtn.addEventListener('click', async () => {
-    loadingSpinner.style.display = 'block';
-    recommendedMenuText.style.display = 'none';
-    menuImage.style.display = 'none';
-    menuExplanation.style.display = 'none';
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', async () => {
+            initializeState();
+            updateSearchButtonState(); // 검색 버튼의 초기 상태 설정
+        });
 
-    const selectedMenu = menus[Math.floor(Math.random() * menus.length)]; 
-
-    if (selectedMenu) {
-        const mobileDevice = isMobileDevice(); 
-
-        if (mobileDevice) {
-            // 모바일일 때 이미지와 설명을 숨깁니다.
-            menuImage.style.display = 'none';
-            menuExplanation.style.display = 'none';
-            
-            // 추천 메뉴 텍스트는 모바일에서도 보입니다.
-            recommendedMenuText.textContent = selectedMenu.name;
-            recommendedMenuText.style.display = 'block';
-            
-            loadingSpinner.style.display = 'none';
-            resetBtn.classList.remove('hidden');
-        } else {
-            // PC일 때 백엔드 API를 통해 이미지를 불러옵니다.
-            // 🚨 중요: 아래 'YOUR_PC_IP_ADDRESS' 부분을 PC의 실제 로컬 IP 주소로 변경해야 합니다!
-            const backendApiUrl = `http://YOUR_PC_IP_ADDRESS:5000/get-menu-image?menu=${selectedMenu.name}`;
-
-            try {
-                const response = await fetch(backendApiUrl);
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(`API 호출 실패: 상태 ${response.status}. ${errorData.error || response.statusText}`);
-                }
-                const data = await response.json();
-
-                if (data.imageUrl) {
-                    menuImage.src = data.imageUrl;
-                    menuImage.alt = selectedMenu.name + " 이미지";
-                    menuExplanation.textContent = selectedMenu.explanation;
-
-                    menuImage.style.display = 'block';
-                    menuExplanation.style.display = 'block';
-                    recommendedMenuText.style.display = 'none';
-                    loadingSpinner.style.display = 'none';
-                    resetBtn.classList.remove('hidden');
-                } else {
-                    menuImage.style.display = 'none';
-                    menuExplanation.style.display = 'none';
-                    recommendedMenuText.textContent = data.message || "해당 메뉴의 이미지를 찾을 수 없습니다.";
-                    recommendedMenuText.style.display = 'block';
-                    loadingSpinner.style.display = 'none';
-                    resetBtn.classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error("API 호출 중 오류 발생:", error);
-                menuImage.style.display = 'none';
-                menuExplanation.style.display = 'none';
-                recommendedMenuText.textContent = `메뉴 추천 중 오류 발생: ${error.message}.`;
-                recommendedMenuText.style.display = 'block';
-                loadingSpinner.style.display = 'none';
-                resetBtn.classList.remove('hidden');
-            }
+        // 모바일 기기 감지 함수 (기존에 있었으므로 유지)
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
-    } else {
-        recommendedMenuText.textContent = "추천할 메뉴가 없습니다.";
-        recommendedMenuText.style.display = 'block';
-        loadingSpinner.style.display = 'none';
-        resetBtn.classList.remove('hidden');
-    }
-});
     </script>
 </body>
 </html>
