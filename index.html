@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘 점심 뭐 먹지? 💡🥢</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* style.css - 식욕을 돋우는 따뜻한 색조합 & 반응형 최적화 */
+
+        /* 전역 변수 (색상 팔레트) - 식욕 돋우는 테마 */
+        :root {
+            --main-bg-warm: #FFF8E1; /* 메인 배경 (바디) - 밝은 크림색 */
+            --container-bg-warm: #FFECB3; /* 컨테이너 배경 - 밝은 오렌지-옐로우 */
+            --primary-appetizing: #FF5722; /* 강조색 (버튼, 제목 등) - 딥 오렌지 */
+            --secondary-appetizing: #FF9800; /* 보조 강조색 - 오렌지 */
+            --text-dark: #4E342E; /* 어두운 텍스트 색상 - 다크 브라운 */
+            --text-light-contrast: #FFFFFF; /* 밝은 텍스트 색상 - 흰색 (주요 버튼 등) */
+            --text-gray: #795548; /* 보조 텍스트 색상 - 중간 브라운 */
+            --border-color-warm: rgba(0, 0, 0, 0.1); /* 미묘한 어두운 테두리 */
+            --button-bg-warm: #FFD54F; /* 버튼 기본 배경 - 밝은 앰버 */
+            --shadow-warm-primary: rgba(255, 87, 34, 0.4); /* 주 강조색 그림자 */
+            --shadow-warm-secondary: rgba(255, 152, 0, 0.3); /* 보조 강조색 그림자 */
+            --shadow-dark-subtle: rgba(0, 0, 0, 0.2); /* 은은한 어두운 그림자 */
+            --error-color: #D32F2F; /* 에러 메시지 색상 - 진한 빨강 */
+        }
+
+        /* 기본 스타일 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--main-bg-warm); /* 바디 배경색 변경 */
+            color: var(--text-dark); /* 기본 텍스트 색상 변경 */
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 콘텐츠를 세로 중앙으로 */
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+            
+            /* 배경 패턴 - 미묘한 원형 패턴 (색상 조정) */
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(0, 0, 0, 0.02) 2%, transparent 2%),
+                radial-gradient(circle at 90% 90%, rgba(0, 0, 0, 0.02) 2%, transparent 2%),
+                linear-gradient(to bottom, #FFFDE7, var(--main-bg-warm)); /* 배경 그라데이션도 조정 */
+            background-size: 500px 500px, 500px 500px, cover;
+            background-repeat: no-repeat;
+            background-position: -50px -50px, calc(100% + 50px) calc(100% + 50px), center center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            background-color: var(--container-bg-warm); /* 컨테이너 배경색 변경 */
+            border-radius: 20px; /* 둥근 모서리 */
+            box-shadow: 0 10px 40px var(--shadow-dark-subtle); /* 깊은 그림자 */
+            padding: 30px; /* 충분한 패딩 */
+            margin: 30px auto;
+            max-width: 95%; /* 모바일에서 더 넓게 */
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid var(--border-color-warm); /* 미묘한 테두리 */
+            backdrop-filter: blur(3px); /* 약간의 블러 효과를 줄임 */
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px; /* 충분한 여백 */
+            padding-bottom: 25px;
+            border-bottom: 1px dashed var(--border-color-warm);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif; /* 힙한 폰트 */
+            color: var(--primary-appetizing); /* 헤더 H1 색상 변경 */
+            font-size: 2.8em; /* 폰트 크기 키움 */
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--shadow-warm-primary), 0 0 20px var(--shadow-warm-primary); /* 따뜻한 네온 효과 */
+            letter-spacing: 2px;
+            word-break: keep-all; /* 단어 잘림 방지 */
+            line-height: 1.2; /* 줄 간격 조정 */
+        }
+
+        .subtitle {
+            color: var(--text-gray); /* 서브타이틀 색상 변경 */
+            font-size: 1.1em;
+            margin-top: 15px;
+            font-weight: 400;
+        }
+
+        .neon-glow {
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 8px var(--primary-appetizing), 0 0 15px var(--primary-appetizing); }
+            to { text-shadow: 0 0 12px var(--secondary-appetizing), 0 0 25px var(--secondary-appetizing); }
+        }
+
+        main {
+            padding: 0;
+        }
+
+        section {
+            margin-bottom: 40px; /* 섹션 간 여백 늘림 */
+        }
+
+        .section-title {
+            color: var(--primary-appetizing); /* 섹션 제목 색상 변경 */
+            font-size: 1.8em; /* 폰트 크기 키움 */
+            margin-bottom: 25px;
+            text-align: center;
+            text-shadow: 0 0 8px var(--shadow-warm-primary);
+            border-bottom: 1px dashed var(--border-color-warm);
+            padding-bottom: 18px;
+            letter-spacing: 1px;
+            word-break: keep-all; /* 단어 잘림 방지 */
+            line-height: 1.3; /* 줄 간격 조정 */
+        }
+
+        /* 스피너 스타일 */
+        .spinner {
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top-color: var(--primary-appetizing); /* 스피너 색상 변경 */
+            width: 50px; /* 스피너 크기 키움 */
+            height: 50px;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite; /* 스핀 속도 빠르게 */
+            margin: 40px auto;
+        }
+
+        .spinner.hidden {
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 카테고리 버튼 그리드 */
+        .category-grid {
+            display: grid;
+            /* 모바일: 화면 너비에 따라 2열 또는 3열로 유연하게 배치됩니다. */
+            /* 각 버튼의 최소 너비는 140px이며, 남은 공간을 균등하게 분배합니다. */
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px; /* 간격 늘림 */
+            margin: 25px 0;
+        }
+
+        /* 카테고리 버튼 스타일 */
+        .category-btn {
+            width: auto;
+            padding: 18px 20px; /* 패딩 늘림 */
+            font-size: 17px; /* 폰트 크기 조정 */
+            font-weight: 700;
+            border: 2px solid var(--border-color-warm); /* 초기 테두리 색상 조정 */
+            border-radius: 12px; /* 더 둥근 모서리 */
+            background: var(--button-bg-warm); /* 버튼 배경색 변경 */
+            color: var(--text-dark); /* 버튼 텍스트 색상 변경 */
+            cursor: pointer;
+            transition: all 0.3s ease; /* 트랜지션 부드럽게 */
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow-dark-subtle);
+            letter-spacing: 0.8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* 이모티콘과 텍스트 사이 간격 */
+            word-break: keep-all; /* 단어 잘림 방지 */
+            line-height: 1.2; /* 줄 간격 조정 */
+        }
+
+        /* 버튼 호버/활성 효과 */
+        .category-btn:hover:not(:disabled) {
+            transform: translateY(-5px) scale(1.02); /* 더 과감한 효과 */
+            box-shadow: 0 8px 25px var(--shadow-warm-primary); /* 따뜻한 그림자 */
+            border-color: var(--primary-appetizing);
+            color: var(--primary-appetizing);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary-appetizing) 0%, var(--secondary-appetizing) 100%); /* 활성 시 강렬한 그라데이션 */
+            color: var(--text-light-contrast); /* 활성 시 텍스트 흰색 */
+            border-color: var(--text-light-contrast);
+            box-shadow: 0 6px 20px var(--shadow-warm-primary);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--secondary-appetizing) 0%, var(--primary-appetizing) 100%);
+            box-shadow: 0 8px 30px var(--shadow-warm-primary);
+            transform: translateY(-4px);
+            border-color: var(--text-light-contrast);
+        }
+
+        /* 드롭다운 그룹 (재개선) */
+        .dropdown-flex-group {
+            display: flex;
+            flex-direction: column; /* 모바일: 세로 정렬 */
+            gap: 30px; /* 드롭다운 아이템 간 간격 충분히 확보 */
+            margin: 40px 0; /* 위아래 여백 늘림 */
+        }
+
+        .dropdown-item {
+            display: flex;
+            flex-direction: column; /* 라벨과 셀렉트 박스 세로 정렬 */
+            gap: 12px; /* 라벨과 셀렉트 박스 간 간격 */
+            align-items: flex-start; /* 왼쪽 정렬 */
+            width: 100%; /* 각 드롭다운 아이템이 부모 너비 차지 */
+        }
+
+        .dropdown-item label {
+            font-size: 1.1em; /* 폰트 크기 키움 */
+            color: var(--primary-appetizing); /* 라벨 색상 변경 */
+            font-weight: 600;
+            text-shadow: 0 0 8px var(--shadow-warm-primary);
+            padding-left: 8px; /* 텍스트와 박스 정렬 위한 패딩 */
+            word-break: keep-all; /* 단어 잘림 방지 */
+            line-height: 1.2; /* 줄 간격 조정 */
+        }
+
+        .select-wrapper {
+            position: relative;
+            width: 100%; /* 셀렉트 박스 래퍼가 100% 너비 */
+        }
+
+        .styled-select {
+            width: 100%; /* 셀렉트 박스가 래퍼의 100% 너비 */
+            padding: 16px 20px; /* 패딩 늘림 */
+            border: 2px solid var(--border-color-warm); /* 미묘한 테두리 */
+            border-radius: 10px;
+            background-color: var(--button-bg-warm); /* 셀렉트 박스 배경색 변경 */
+            font-size: 17px;
+            color: var(--text-dark); /* 셀렉트 박스 텍스트 색상 변경 */
+            appearance: none; /* 기본 화살표 완전히 제거 */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: none; /* 배경 이미지(화살표) 완전히 제거 */
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center; /* 텍스트 중앙 정렬 */
+            box-shadow: 0 3px 10px var(--shadow-dark-subtle);
+        }
+
+        .styled-select:focus {
+            outline: none;
+            border-color: var(--primary-appetizing); /* 포커스 시 색상 변경 */
+            box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.3), 0 0 15px var(--shadow-warm-primary); /* 따뜻한 네온 포커스 효과 */
+            background-color: #FFECB3; /* 포커스 시 약간 밝게 */
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 15px; /* 오른쪽에서 떨어진 거리 */
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-appetizing); /* 화살표 색상 변경 */
+            font-size: 1.2em; /* 화살표 크기 */
+            pointer-events: none; /* 클릭 이벤트 방지 */
+        }
+
+        /* 액션 버튼 그룹 */
+        .action-buttons {
+            display: flex;
+            flex-direction: column; /* 모바일: 세로 정렬 */
+            gap: 20px; /* 버튼 간 간격 늘림 */
+            margin: 40px 0; /* 위아래 여백 늘림 */
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 20px 25px; /* 패딩 늘림 */
+            font-size: 19px; /* 폰트 크기 늘림 */
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px var(--shadow-dark-subtle);
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px; /* 이모티콘과 텍스트 사이 간격 */
+            word-break: keep-all; /* 단어 잘림 방지 */
+            line-height: 1.2; /* 줄 간격 조정 */
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, var(--primary-appetizing) 0%, var(--secondary-appetizing) 100%); /* 따뜻한 그라데이션 */
+            color: var(--text-light-contrast); /* 텍스트 흰색 */
+            text-shadow: 0 0 5px rgba(0,0,0,0.3); /* 은은한 텍스트 그림자 */
+        }
+
+        .primary-btn:hover:not(:disabled) {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 8px 30px var(--shadow-warm-primary);
+            background: linear-gradient(135deg, var(--secondary-appetizing) 0%, var(--primary-appetizing) 100%);
+        }
+
+        .secondary-btn {
+            background: var(--button-bg-warm); /* 보조 버튼 배경색 변경 */
+            color: var(--primary-appetizing); /* 보조 버튼 텍스트 색상 변경 */
+            border: 2px solid var(--primary-appetizing); /* 보조 버튼 테두리 색상 변경 */
+        }
+
+        .secondary-btn:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 6px 25px var(--shadow-warm-secondary);
+            background: #FFECB3; /* 호버 시 약간 밝게 */
+            color: var(--text-dark); /* 호버 시 텍스트 색상 변경 */
+            border-color: var(--text-dark);
+        }
+
+        .action-btn.hidden {
+            display: none;
+        }
+
+        /* 결과 표시 섹션 */
+        .result-section {
+            text-align: center;
+            margin-top: 50px; /* 위쪽 마진 늘림 */
+            padding-top: 30px;
+            border-top: 1px dashed var(--border-color-warm);
+        }
+
+        .result-section .section-title {
+            color: var(--primary-appetizing); /* 결과 섹션 제목 색상 변경 */
+            text-shadow: 0 0 10px var(--shadow-warm-primary);
+        }
+
+        .recommended-menu-text {
+            font-family: 'Orbitron', sans-serif; /* 힙한 폰트 적용 */
+            font-size: 2.8em; /* 폰트 크기 키움 */
+            font-weight: 700;
+            color: var(--text-dark); /* 추천 메뉴 텍스트 색상 변경 */
+            margin-bottom: 20px;
+            min-height: 1.5em;
+            animation: fade-in-up 0.9s ease-out forwards;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 은은한 텍스트 그림자 */
+            word-break: keep-all; /* 단어 잘림 방지 */
+            line-height: 1.3;
+        }
+
+        .recommended-menu-text.initial {
+            font-family: 'Noto Sans KR', sans-serif; /* 초기 상태는 일반 폰트 */
+            font-size: 1.4em; /* 초기 상태 텍스트 크기 */
+            color: var(--text-gray); /* 초기 상태 텍스트 색상 변경 */
+            font-weight: 400;
+            opacity: 1;
+            animation: none;
+            text-shadow: none;
+            word-break: keep-all; /* 단어 잘림 방지 */
+            line-height: 1.5; /* 줄 간격 조정 */
+        }
+
+        .recommended-menu-text.error {
+            color: var(--error-color); /* 에러 색상 변경 */
+            font-size: 1.4em;
+            font-weight: 600;
+            animation: fade-in-up 0.5s ease-out forwards;
+            text-shadow: 0 0 8px rgba(211, 47, 47, 0.5);
+            word-break: keep-all; /* 단어 잘림 방지 */
+            line-height: 1.5; /* 줄 간격 조정 */
+        }
+
+        .menu-image {
+            max-width: 95%; /* 이미지 최대 너비 늘림 */
+            height: auto;
+            border-radius: 15px; /* 더 둥근 모서리 */
+            margin: 30px auto; /* 마진 늘림 */
+            box-shadow: 0 8px 30px var(--shadow-dark-subtle);
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+            border: 3px solid var(--primary-appetizing); /* 강조 테두리 */
+        }
+
+        .menu-image.fade-in {
+            opacity: 1;
+        }
+
+        .menu-image.hidden {
+            display: none;
+        }
+
+        .menu-explanation {
+            font-size: 1.2em; /* 폰트 크기 키움 */
+            color: var(--text-gray); /* 설명 텍스트 색상 변경 */
+            margin-top: 25px;
+            line-height: 1.8;
+            animation: fade-in-up 1.1s ease-out forwards;
+            min-height: 3em;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            word-break: keep-all; /* 단어 잘림 방지 */
+            padding: 0 10px; /* 좌우 패딩 추가 */
+        }
+
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 댓글 섹션 스타일 */
+        .comments-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed var(--border-color-warm);
+        }
+
+        .comments-section .section-title {
+            color: var(--primary-appetizing);
+            text-shadow: 0 0 10px var(--shadow-warm-primary);
+        }
+
+        .comment-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+            margin-bottom: 30px;
+        }
+
+        .comment-input-group textarea {
+            width: calc(100% - 24px); /* 패딩 고려 */
+            padding: 12px;
+            border: 2px solid var(--border-color-warm);
+            border-radius: 8px;
+            background-color: var(--button-bg-warm);
+            font-size: 1em;
+            color: var(--text-dark);
+            resize: vertical; /* 세로 크기 조절 가능 */
+            min-height: 80px;
+            box-shadow: 0 2px 8px var(--shadow-dark-subtle);
+        }
+
+        .comment-input-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-appetizing);
+            box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.2), 0 0 10px var(--shadow-warm-primary);
+        }
+
+        .comment-input-group button {
+            padding: 12px 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-appetizing) 0%, var(--secondary-appetizing) 100%);
+            color: var(--text-light-contrast);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-dark-subtle);
+        }
+
+        .comment-input-group button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--shadow-warm-primary);
+        }
+
+        .comment-list {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid var(--border-color-warm);
+            border-radius: 10px;
+            background-color: rgba(255, 236, 179, 0.5); /* 컨테이너 배경보다 약간 투명하게 */
+            max-height: 300px; /* 댓글 목록 높이 제한 */
+            overflow-y: auto; /* 스크롤바 추가 */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); /* 내부 그림자 */
+        }
+
+        .comment-item {
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+            text-align: left;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comment-author {
+            font-weight: 700;
+            color: var(--primary-appetizing);
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .comment-text {
+            color: var(--text-dark);
+            font-size: 1em;
+            word-wrap: break-word; /* 긴 단어 줄바꿈 */
+        }
+
+        .no-comments {
+            color: var(--text-gray);
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px; /* 위쪽 마진 늘림 */
+            padding-top: 25px;
+            border-top: 1px dashed var(--border-color-warm);
+            color: var(--text-gray); /* 푸터 텍스트 색상 변경 */
+            font-size: 0.95em;
+            width: 100%;
+            padding-bottom: 25px;
+        }
+
+        .emoji {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1; /* 일부 이모티콘이 폰트 크기에 따라 올라가는 현상 방지 */
+            margin-left: 5px; /* 텍스트와의 간격 */
+        }
+
+        /* 특정 이모티콘에 대한 추가 애니메이션 등 (선택 사항) */
+        header h1 .emoji {
+            animation: sparkle 1.5s infinite alternate;
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 메뉴 추천 결과 후 입력 요소 비활성화 스타일 */
+        .category-btn:disabled,
+        .styled-select:disabled,
+        .action-btn:disabled {
+            opacity: 0.4 !important; /* 더 흐리게 */
+            cursor: not-allowed !important;
+            transform: none !important;
+            pointer-events: none !important;
+            filter: grayscale(80%) brightness(80%); /* 색상을 옅게, 밝기를 약간 어둡게 */
+            box-shadow: none !important;
+            border-color: rgba(0, 0, 0, 0.05) !important; /* 거의 안보이는 테두리 */
+        }
+
+        .category-btn:disabled {
+            background: #FFECB3 !important; /* 비활성화 시 배경색 조정 */
+            color: #A1887F !important; /* 비활성화 시 텍스트 색상 조정 */
+        }
+
+        .category-btn:disabled:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background: #FFECB3 !important;
+        }
+
+
+        /* 반응형 디자인 */
+
+        /* 모바일 (320px ~ 599px) - 작은 화면을 위한 추가 조정 */
+        @media (max-width: 599px) {
+            header h1 {
+                font-size: 2.2em; /* 더 작은 모바일 화면에서 제목 크기 조정 */
+            }
+            .subtitle {
+                font-size: 1em;
+            }
+            .section-title {
+                font-size: 1.6em; /* 섹션 제목 크기 조정 */
+            }
+            .recommended-menu-text {
+                font-size: 2.2em; /* 추천 메뉴 텍스트 크기 조정 */
+            }
+            .menu-explanation {
+                font-size: 1.1em; /* 설명 텍스트 크기 조정 */
+            }
+            .category-btn {
+                font-size: 16px; /* 버튼 폰트 크기 조정 */
+                padding: 15px 18px; /* 버튼 패딩 조정 */
+            }
+            .styled-select {
+                font-size: 16px; /* 드롭다운 폰트 크기 조정 */
+                padding: 14px 18px; /* 드롭다운 패딩 조정 */
+            }
+            .action-btn {
+                font-size: 18px; /* 액션 버튼 폰트 크기 조정 */
+                padding: 18px 22px; /* 액션 버튼 패딩 조정 */
+            }
+        }
+
+
+        /* 태블릿 (600px 이상) */
+        @media (min-width: 600px) {
+            .container {
+                padding: 40px;
+                max-width: 750px;
+            }
+
+            header h1 {
+                font-size: 3.5em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .category-grid {
+                /* 태블릿 화면에서는 3열로 고정됩니다. */
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .category-btn {
+                padding: 20px 25px;
+                font-size: 18px;
+            }
+
+            .dropdown-flex-group {
+                flex-direction: row; /* 태블릿부터 가로 정렬 */
+                gap: 40px; /* 드롭다운 그룹 간 간격 늘림 */
+                justify-content: center;
+            }
+            
+            .dropdown-item {
+                flex-direction: row; /* 라벨과 셀렉트 박스 가로 정렬 */
+                align-items: center;
+                gap: 15px; /* 라벨과 셀렉트 박스 간격 */
+            }
+
+            .dropdown-item label {
+                white-space: nowrap;
+                padding-left: 0;
+            }
+
+            .select-wrapper {
+                flex-grow: 1; /* 남은 공간을 셀렉트 래퍼가 차지 */
+                max-width: 220px; /* 최대 너비 설정 */
+            }
+
+            .styled-select {
+                font-size: 18px;
+                padding: 18px 20px;
+            }
+            
+            .select-arrow {
+                right: 18px; /* 태블릿에서 화살표 위치 조정 */
+                font-size: 1.3em;
+            }
+
+            .action-buttons {
+                flex-direction: row;
+                justify-content: center;
+                gap: 25px; /* 버튼 간 간격 늘림 */
+            }
+
+            .action-btn {
+                max-width: 350px; /* 버튼 최대 너비 */
+                font-size: 20px;
+            }
+
+            .recommended-menu-text {
+                font-size: 3.5em;
+            }
+
+            .menu-image {
+                max-width: 85%;
+            }
+
+            .menu-explanation {
+                font-size: 1.3em;
+            }
+        }
+
+        /* 데스크톱 (960px 이상) */
+        @media (min-width: 960px) {
+            .container {
+                padding: 60px;
+                max-width: 1000px; /* 컨테이너 최대 너비 늘림 */
+                margin: 50px auto;
+            }
+
+            header h1 {
+                font-size: 4em;
+            }
+
+            .subtitle {
+                font-size: 1.3em;
+            }
+
+            .section-title {
+                font-size: 2.2em;
+            }
+
+            .category-grid {
+                /* 데스크톱 화면에서도 3열로 고정됩니다. */
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px;
+            }
+            
+            .category-btn {
+                padding: 22px 30px;
+                font-size: 19px;
+            }
+
+            .dropdown-flex-group {
+                gap: 50px; /* 드롭다운 그룹 간 간격 더 늘림 */
+            }
+
+            .select-wrapper {
+                max-width: 250px; /* 데스크톱에서 최대 너비 조정 */
+            }
+
+            .styled-select {
+                font-size: 19px;
+                padding: 20px 25px;
+            }
+
+            .select-arrow {
+                right: 25px; /* 데스크톱에서 화살표 위치 조정 */
+                font-size: 1.4em;
+            }
+
+            .action-buttons {
+                gap: 30px;
+            }
+
+            .action-btn {
+                max-width: 400px;
+                font-size: 22px;
+            }
+
+            .recommended-menu-text {
+                font-size: 4.5em;
+            }
+
+            .menu-image {
+                max-width: 75%;
+            }
+
+            .menu-explanation {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>오늘 점심 뭐 먹지? <span class="neon-glow">✨</span></h1>
+            <p class="subtitle">결정장애 극복! 오늘의 메뉴를 추천받아봐! 🚀</p>
+        </header>
+
+        <main>
+            <section class="selection-section">
+                <h2 class="section-title">어떤 종류의 음식을 먹을까요? <span class="emoji">👇</span></h2>
+                <div class="category-grid">
+                    <button class="category-btn" data-category="korean">한식 <span class="emoji">🍚</span></button>
+                    <button class="category-btn" data-category="chinese">중식 <span class="emoji">🍜</span></button>
+                    <button class="category-btn" data-category="japanese">일식 <span class="emoji">🍣</span></button>
+                    <button class="category-btn" data-category="western">양식 <span class="emoji">🍝</span></button>
+                    <button class="category-btn" data-category="fastfood_and_bunsik">분식/패스트푸드 <span class="emoji">🍟</span></button>
+                    <button class="category-btn" data-category="any">아무거나! <span class="emoji">🍀</span></button>
+                </div>
+
+                <div class="dropdown-flex-group">
+                    <div class="dropdown-item">
+                        <label for="season-select">지금은 어떤 계절인가요? <span class="emoji">🗓️</span></label>
+                        <div class="select-wrapper">
+                            <select id="season-select" class="styled-select">
+                                <option value="">계절 선택</option>
+                                <option value="spring">봄 🌸</option>
+                                <option value="summer">여름 ☀️</option>
+                                <option value="autumn">가을 🍂</option>
+                                <option value="winter">겨울 ❄️</option>
+                                <option value="all">계절 무관 🔄</option>
+                            </select>
+                            <span class="select-arrow">⬇️</span>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-item">
+                        <label for="weather-select">날씨는 어떤가요? <span class="emoji">☁️</span></label>
+                        <div class="select-wrapper">
+                            <select id="weather-select" class="styled-select">
+                                <option value="">날씨 선택</option>
+                                <option value="sunny">맑음 ☀️</option>
+                                <option value="rainy">비 🌧️</option>
+                                <option value="cold">추움 🥶</option>
+                                <option value="hot">더움 🥵</option>
+                                <option value="snowy">눈 🌨️</option>
+                                <option value="all">날씨 무관 🔄</option>
+                            </select>
+                            <span class="select-arrow">⬇️</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="search-btn" class="action-btn primary-btn">메뉴 추천받기! <span class="emoji">✨</span></button>
+                    <button id="reset-btn" class="action-btn secondary-btn hidden">다시 선택하기 <span class="emoji">↩️</span></button>
+                </div>
+            </section>
+
+            <section class="result-section">
+                <h2 class="section-title">오늘의 점심 메뉴는?! <span class="emoji">🤩</span></h2>
+                <div class="spinner hidden" id="loading-spinner"></div>
+                <p id="recommended-menu" class="recommended-menu-text initial">카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆</p>
+                <img id="menu-image" class="menu-image hidden" alt="추천 메뉴 이미지">
+                <p id="menu-explanation" class="menu-explanation"></p>
+            </section>
+
+        <footer>
+            <p>&copy; 2025 점심 메뉴 추천기. All rights reserved. <span class="emoji">🎮</span></p>
+        </footer>
+    </div>
+    <script>
+        // 이 작은 인라인 스크립트는 주요 애플리케이션 로직을 로드하려고 시도합니다.
+        // CSP 위반 가능성을 줄이기 위해 최소한으로 유지됩니다.
+
+        // --- Existing Menu Recommendation Logic ---
+        const menus = {
+            korean: [
+                { name: "김치찌개", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "쌀쌀하거나 비 오는 날, 매콤하고 뜨끈한 김치찌개는 진리! 😋 얼큰한 국물에 밥 한 공기 뚝딱하면 스트레스 날아가는 K-힐링 각!" },
+                { name: "된장찌개", season: ["all"], weather: ["all", "sunny"], explanation: "오늘 뭐 먹을지 고민될 땐 역시 구수한 된장찌개! 🥘 갓 지은 밥에 쓱쓱 비벼 먹으면 든든하고 행복해지는 국룰 조합이에요." },
+                { name: "순두부찌개", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "뜨끈하고 부드러운 순두부찌개는 비 오는 날이나 추운 날씨에 최고! 🌶️몽글몽글 순두부에 얼큰한 국물이 속까지 따뜻하게 채워줘요." },
+                { name: "비빔밥", season: ["all"], weather: ["all", "sunny"], explanation: "알록달록 신선한 재료 가득! 비빔밥은 언제 먹어도 건강하고 맛있죠? 🌈 한 그릇에 영양 밸런스까지 완벽해서 점심 메뉴로 딱이에요." },
+                { name: "제육볶음", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤 제육볶음은 포기할 수 없는 밥도둑! 🍚 지쳐있는 오후에 활력을 불어넣어 줄 매콤함이 필요하다면 바로 이거죠!" },
+                { name: "불고기", season: ["all"], weather: ["all", "sunny"], explanation: "달콤 짭짤한 불고기는 호불호 없이 모두가 사랑하는 맛! 🥩 부드러운 고기와 채소의 환상 조합으로 입맛 없을 때도 꿀맛이에요." },
+                { name: "삼겹살 구이", season: ["all"], weather: ["all", "sunny"], explanation: "점심부터 삼겹살? 🥓 네, 바로 그거죠! 지글지글 고소한 삼겹살에 쌈 채소 싸 먹으면 완벽한 점심 FLEX!" },
+                { name: "갈비찜", season: ["all"], weather: ["cold", "all", "sunny"], explanation: "뼈에 붙은 살까지 야무지게! 부드러운 갈비찜은 쌀쌀한 날 몸보신으로 제격이에요. 든든하게 먹고 오후에도 힘내세요!" },
+                { name: "닭갈비", season: ["all"], weather: ["all", "sunny"], explanation: "매콤한 양념에 볶아 먹는 닭갈비는 사랑! 🍗 치즈까지 추가하면 인스타 감성 풀충전! 볶음밥으로 마무리하는 건 국룰이잖아요?" },
+                { name: "육개장", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "얼큰하고 진한 육개장은 해장템으로도, 기운 없을 때도 최고! 💥 뜨끈한 국물 한 숟가락이면 땀이 송골송골, 기운이 팍팍 솟아요." },
+                { name: "부대찌개", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "보글보글 끓는 부대찌개는 사랑이죠! 햄, 소시지, 라면사리 듬뿍 넣어 푸짐하게 즐기면 완벽한 점심 한 끼!" },
+                { name: "순대국밥", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "뜨끈한 국밥만큼 든든한 점심은 없죠! 😋 순대국밥에 다대기 풀어서 얼큰하게 먹으면 추위도 싹 가셔요." },
+                { name: "감자탕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "뼈해장국으로도 불리는 감자탕은 쌀쌀한 날씨에 찐이에요. 푸짐한 살코기와 얼큰한 국물로 오늘 점심 든든하게 채워봐요!" },
+                { name: "콩국수", season: ["summer"], weather: ["hot", "sunny"], explanation: "무더운 여름, 시원한 콩국수 한 그릇으로 더위를 잊어봐요! ❄️ 고소하고 시원한 국물이 입맛 돋우는 여름 필수템." },
+                { name: "냉면", season: ["summer"], weather: ["hot", "sunny"], explanation: "여름엔 역시 냉면이죠! 🍜 살얼음 동동 시원한 육수에 아삭한 무김치까지! 더위 한 방에 날리는 시원함!" },
+                { name: "초계국수", season: ["summer"], weather: ["hot", "sunny"], explanation: "더운 여름, 새콤달콤 시원한 초계국수로 입맛 살려봐요! 🐔 쫄깃한 면에 닭고기까지 든든한 여름 별미!" },
+                { name: "김치찜", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "푹 익은 김치에 부드러운 고기가 환상의 궁합! 🍚 김치찜은 밥도둑 그 자체! 쌀쌀한 날씨에 따뜻하게 즐겨봐요." },
+                { name: "찜닭", season: ["all"], weather: ["all", "sunny"], explanation: "남녀노소 누구나 좋아하는 찜닭! 🥢 달콤 짭짤한 양념에 밥 비벼 먹으면 꿀맛 보장! 점심 회식 메뉴로도 좋아요." },
+                { name: "아구찜", season: ["all"], weather: ["all", "sunny"], explanation: "매콤한 양념에 쫄깃한 아구살이 가득! 아구찜은 스트레스 해소에 최고! 🌶️ 콩나물 아삭한 식감도 놓칠 수 없죠." },
+                { name: "보쌈", season: ["all"], weather: ["all", "sunny"], explanation: "야들야들 부드러운 보쌈은 사랑이죠! 🐷 김치에 싸 먹으면 꿀맛! 든든하고 고급스러운 점심 메뉴로 추천해요." },
+                { name: "족발", season: ["all"], weather: ["all", "sunny"], explanation: "쫄깃한 족발은 말이 필요 없죠! 🐷 점심부터 족발 FLEX! 친구들과 함께 즐기기 딱 좋아요." },
+                { name: "간장게장", season: ["all"], weather: ["all", "sunny"], explanation: "밥도둑 끝판왕 간장게장! 🦀 고소한 게살에 밥 비벼 먹으면 한 공기 순삭! 오늘 점심 찐으로 맛있게 먹고 싶다면 강추!" },
+                { name: "낙지볶음", season: ["all"], weather: ["all", "sunny"], explanation: "매콤한 양념에 통통한 낙지가 가득! 🐙 스트레스 팍팍 날려주는 매운맛! 밥과 함께 비벼 먹으면 중독성 최고예요." },
+                { name: "갈치조림", season: ["all"], weather: ["all", "sunny"], explanation: "보글보글 맛있는 갈치조림! 🐟 부드러운 갈치살에 매콤한 양념이 밥에 쓱쓱! 집밥 생각날 때 딱이에요." },
+                { name: "백반", season: ["all"], weather: ["all", "sunny"], explanation: "깔끔하고 정갈한 백반은 언제나 옳죠! 🍚 푸짐한 반찬에 따뜻한 밥까지! 집밥 생각날 때 최고의 선택이에요." },
+                { name: "육회비빔밥", season: ["all"], weather: ["all", "sunny"], explanation: "신선한 육회에 고소한 양념, 비빔밥까지! 🥩 육회비빔밥은 든든하고 특별한 점심 메뉴로 최고예요!" },
+                { name: "꼬막비빔밥", season: ["autumn", "winter", "all"], weather: ["all", "sunny"], explanation: "탱글탱글 꼬막에 매콤한 양념, 고소한 밥까지! 🍚 가을 겨울 제철 꼬막으로 입맛 돋우는 별미예요." },
+                { name: "곰탕", season: ["all"], weather: ["cold", "snowy", "all"], explanation: "깊고 진한 곰탕 국물은 추운 날 몸보신에 최고! 🥣 파 듬뿍 넣고 깍두기랑 먹으면 속이 든든해져요." },
+                { name: "설렁탕", season: ["all"], weather: ["cold", "snowy", "all"], explanation: "뽀얀 국물의 설렁탕은 따뜻하고 든든하게 한 끼! 🥛 소면까지 호로록! 추운 날씨에 몸을 녹여줄 완벽한 선택." },
+                { name: "갈비탕", season: ["all"], weather: ["cold", "snowy", "all"], explanation: "부드러운 갈빗대에 진한 국물! 🍲 든든하게 몸보신하고 싶을 때 갈비탕 한 그릇이면 힘이 솟아요!" },
+                { name: "삼계탕", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "복날이 아니어도 괜찮아! 🐔 따뜻한 삼계탕으로 이열치열 몸보신하거나, 추운 날 건강 챙겨봐요!" },
+                { name: "코다리찜", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤 꾸덕한 코다리찜은 밥도둑! 🐟 쫄깃한 코다리 살과 무의 조합이 최고예요." },
+                { name: "콩나물국밥", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "시원하고 개운한 콩나물국밥은 해장에도 최고! 🍲 속이 확 풀리는 뜨끈한 국물로 든든하게 시작해요." },
+                { name: "묵사발", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "탱글탱글 도토리묵에 시원한 육수! 🍃 더운 여름, 시원하고 가볍게 즐기기 좋은 웰빙 메뉴예요." },
+                { name: "바지락칼국수", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "시원한 바지락 육수에 쫄깃한 면발! 🍜 비 오는 날이나 쌀쌀한 날씨에 딱 어울리는 칼국수예요." },
+                { name: "들깨칼국수", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "고소하고 진한 들깨 칼국수는 쌀쌀한 날씨에 딱! � 영양까지 챙기는 든든한 한 끼예요." },
+                { name: "만둣국", season: ["winter", "all"], weather: ["cold", "snowy", "all"], explanation: "겨울엔 역시 만둣국! 🥟 뽀얀 국물에 속 꽉 찬 만두가 듬뿍! 따뜻하고 든든하게 즐겨봐요." },
+                { name: "순대볶음", season: ["all"], weather: ["all", "sunny"], explanation: "쫄깃한 순대에 매콤한 양념이 찰떡궁합! 🍢 밥반찬으로도 최고! 스트레스 해소에 딱!" },
+                { name: "닭볶음탕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "매콤달콤 닭볶음탕은 밥도둑! 🍗 얼큰한 국물에 닭고기, 감자까지! 든든하게 즐겨봐요." },
+                { name: "잡채", season: ["all"], weather: ["all", "sunny"], explanation: "잔치 음식의 대명사 잡채! 🥢 쫄깃한 당면에 다양한 채소가 어우러져 맛과 영양을 동시에!" },
+                { name: "빈대떡", season: ["all"], weather: ["rainy", "all"], explanation: "비 오는 날 막걸리와 함께! 🌧️ 바삭하고 고소한 빈대떡은 술안주로도, 식사로도 좋아요." },
+                { name: "해물파전", season: ["all"], weather: ["rainy", "all"], explanation: "비 오는 날 해물파전은 국룰! ☔️ 막걸리 한 잔에 바삭한 해물파전이면 분위기 최고!" },
+                { name: "닭한마리", season: ["all"], weather: ["cold", "all"], explanation: "담백한 국물에 닭고기, 떡, 감자까지! 🐔 쌀쌀한 날 몸보신에 딱 좋은 닭한마리!" },
+                { name: "보리밥", season: ["all"], weather: ["all", "sunny"], explanation: "건강하고 구수한 보리밥에 다양한 나물 듬뿍! 🌿 쓱쓱 비벼 먹으면 든든하고 건강한 한 끼!" },
+                { name: "곤드레밥", season: ["all"], weather: ["all", "sunny"], explanation: "향긋한 곤드레나물에 양념장 쓱쓱! 🌾 건강하면서도 맛있는 곤드레밥은 웰빙 점심으로 딱이에요." },
+                { name: "곱창전골", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "쫄깃한 곱창에 얼큰한 국물! 곱창전골은 쌀쌀한 날씨에 친구들과 함께 즐기기 딱 좋은 메뉴예요. 점심부터 플렉스!" },
+                { name: "돌솥비빔밥", season: ["all"], weather: ["all", "sunny"], explanation: "따끈한 돌솥에 지글지글! 🍚 비빔밥의 바삭한 누룽지까지 맛볼 수 있는 돌솥비빔밥으로 든든한 점심 즐겨봐요." },
+                { name: "메밀막국수", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "시원하고 새콤달콤한 메밀막국수! 🍜 더운 날 입맛 살려주는 별미! 메밀의 고소함까지!" },
+                { name: "동태찌개", season: ["winter", "all"], weather: ["cold", "rainy", "all"], explanation: "쌀쌀하고 비 오는 날 얼큰한 동태찌개는 최고! 🐟 시원한 국물에 밥 비벼 먹으면 든든해요." },
+                { name: "알탕", season: ["winter", "all"], weather: ["cold", "rainy", "all"], explanation: "톡톡 터지는 알과 고니, 얼큰한 국물이 일품! 🌶️ 겨울에 속까지 시원하게 풀어주는 알탕으로 점심 어때요?" },
+                { name: "추어탕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "기운 뚝 떨어졌을 때, 얼큰하고 구수한 추어탕 한 그릇이면 힘이 불끈!💪 추운 날씨에 몸을 따뜻하게 데워줄 메뉴예요." },
+                { name: "순대곱창볶음", season: ["all"], weather: ["all", "sunny"], explanation: "매콤한 양념에 순대와 곱창의 환상 콜라보! 🌶️ 든든하고 맛있게 즐기는 점심 메뉴로 강추!" },
+                { name: "제육덮밥", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤한 제육볶음이 밥 위에 듬뿍! 🍚 한 그릇으로 든든하게 즐기는 밥도둑이에요." },
+                { name: "오징어볶음", season: ["all"], weather: ["all", "sunny"], explanation: "쫄깃한 오징어에 매콤한 양념이 착착! 🦑 밥과 함께 비벼 먹으면 스트레스 날아가는 맛!" },
+                { name: "쭈꾸미볶음", season: ["all"], weather: ["all", "sunny"], explanation: "쫄깃한 쭈꾸미에 불맛까지! 🌶️ 매콤한 쭈꾸미볶음은 매운맛 덕후들 모여라! 콩나물과 함께 먹으면 아삭함까지 완벽!" },
+                { name: "오삼불고기", season: ["all"], weather: ["all", "sunny"], explanation: "오징어와 삼겹살의 만남! 🦑🐷 매콤한 양념에 볶아 먹으면 밥이 술술 넘어가는 환상의 조합!" },
+                { name: "닭발볶음", season: ["all"], weather: ["all", "sunny"], explanation: "매콤한 닭발볶음은 역시 스트레스 해소에 최고! 🐔 콜라겐 듬뿍! 쫀득한 식감에 중독될 거예요." },
+                { name: "병어조림", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 병어살에 매콤한 양념! 🐟 밥도둑으로 손색 없는 병어조림으로 오늘 점심 즐겨봐요." },
+                { name: "뼈해장국", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "뜨끈하고 얼큰한 뼈해장국은 해장에도, 든든한 점심에도 최고! 🍖 살코기 발라 먹는 재미까지!" },
+                { name: "김치우동", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "얼큰한 김치 국물에 쫄깃한 우동 면발! 🍜 쌀쌀한 날 속까지 뜨끈하게 채워줄 퓨전 메뉴예요." },
+                { name: "들깨수제비", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "고소하고 진한 들깨 국물에 쫀득한 수제비! 🥣 영양 가득, 든든한 한 끼로 딱이에요." },
+                { name: "어복쟁반", season: ["winter", "all"], weather: ["cold", "snowy", "all"], explanation: "따뜻한 국물에 소고기 편육, 만두, 채소가 푸짐하게! 🍲 겨울철 몸보신과 특별한 점심을 동시에!" },
+                { name: "안동찜닭", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤한 간장 양념에 닭고기, 당면, 채소까지! 🍗 밥도둑 안동찜닭으로 든든한 점심!" },
+                { name: "전주비빔밥", season: ["all"], weather: ["all", "sunny"], explanation: "맛과 영양을 동시에 잡은 전주비빔밥! 🍚 고소한 육회 또는 황포묵까지! 한국의 맛을 제대로 느껴봐요." },
+                { name: "돌솥알밥", season: ["all"], weather: ["all", "sunny"], explanation: "톡톡 터지는 날치알과 김치, 채소가 어우러진 돌솥알밥! 🍚 바삭한 누룽지까지 즐기는 별미예요." },
+                { name: "해물뚝배기", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "각종 신선한 해산물이 듬뿍! 🦐 얼큰하고 시원한 해물뚝배기는 쌀쌀한 날씨에 찐이에요." },
+                { name: "곱도리탕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "닭볶음탕에 쫄깃한 곱창이 들어갔다?! 🐔 얼큰하고 고소한 곱도리탕으로 오늘 점심 스트레스 해소!" },
+                { name: "양념게장", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤 중독성 강한 양념게장은 밥도둑! 🦀 흰 쌀밥에 양념게장 하나면 밥 두 공기도 순삭!" },
+                { name: "대구뽈찜", season: ["all"], weather: ["all", "sunny"], explanation: "쫄깃한 대구살에 매콤한 양념이 듬뿍! 🌶️ 콩나물과 함께 아삭하게 즐기는 별미 해산물 요리예요." }
+            ],
+            chinese: [
+                { name: "짜장면", season: ["all"], weather: ["all", "sunny"], explanation: "오늘 점심은 짜장면 각? 🍜 윤기 좌르르 면치기 한 번이면 스트레스도 싹! 남은 소스에 밥 비벼 먹는 건 국룰!" },
+                { name: "짬뽕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "비 오거나 쌀쌀한 날엔 역시 얼큰한 짬뽕! 🌶️ 해산물 가득 뜨끈한 국물이 속까지 시원하게 풀어줘요." },
+                { name: "탕수육", season: ["all"], weather: ["all", "sunny"], explanation: "바삭 촉촉 탕수육은 사랑! 💖 찍먹이든 부먹이든, 달콤 짭짤한 소스와의 조합은 언제나 옳죠!" },
+                { name: "볶음밥", season: ["all"], weather: ["all", "sunny"], explanation: "고슬고슬 볶음밥에 짜장 소스 쓱쓱! 🍚 깔끔하고 든든하게 즐기기 좋은 중식 대표 메뉴예요." },
+                { name: "마파두부밥", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "매콤하고 부드러운 마파두부는 밥도둑! 🌶️ 쌀쌀한 날씨에 속을 뜨끈하게 채워주는 이국적인 맛이에요." },
+                { name: "깐풍기", season: ["all"], weather: ["all", "sunny"], explanation: "겉바속촉 깐풍기는 맥주를 부르는 맛! 🍻 매콤달콤한 소스에 바삭한 튀김 옷이 환상 조합이에요." },
+                { name: "양장피", season: ["all"], weather: ["all", "sunny"], explanation: "톡 쏘는 겨자 소스에 다채로운 재료가 가득! 🌈 양장피는 건강하면서도 푸짐하게 즐길 수 있는 중식 별미예요." },
+                { name: "유린기", season: ["all"], weather: ["all", "sunny"], explanation: "바삭한 닭튀김에 상큼한 소스! 🍗 유린기는 느끼함 없이 깔끔하게 즐길 수 있는 중식 메뉴로 추천해요." },
+                { name: "칠리새우", season: ["all"], weather: ["all", "sunny"], explanation: "통통한 새우에 매콤달콤 칠리 소스가 듬뿍! 🍤 칠리새우는 비주얼도 맛도 최고! 오늘 점심 찐으로 행복할 예정!" },
+                { name: "볶음짬뽕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "얼큰한 짬뽕을 볶음으로! 🌶️ 쫄깃한 면에 매콤한 해산물 소스가 착착 감기는 맛! 스트레스 해소에 딱!" },
+                { name: "고추잡채", season: ["all"], weather: ["all", "sunny"], explanation: "피망, 고기와 춘장이 만났다! 🌶️ 꽃빵에 싸 먹으면 꿀맛! 고급스러운 중식 요리로 점심 회식도 좋아요." },
+                { name: "유산슬", season: ["all"], weather: ["all", "sunny"], explanation: "부드럽고 담백한 유산슬은 어른들도 좋아하는 메뉴! 🥢 건강하면서도 맛있는 중식으로 추천해요." },
+                { name: "크림새우", season: ["all"], weather: ["all", "sunny"], explanation: "바삭한 새우튀김에 부드러운 크림 소스! 🍤 비주얼부터 심쿵! 달콤하고 고소한 맛으로 오늘 점심 스페셜하게!" },
+                { name: "XO볶음밥", season: ["all"], weather: ["all", "sunny"], explanation: "고급 해산물 소스 XO가 들어간 볶음밥! 🍚 깊은 풍미에 감칠맛까지! 평범한 볶음밥은 이제 그만!" },
+                { name: "동파육", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "부드러운 돼지고기 삼겹살을 간장 소스에 푹! 🍖 쌀쌀한 날씨에 든든하게 몸보신하고 싶다면 동파육!" },
+                { name: "라조장", season: ["all"], weather: ["all", "sunny"], explanation: "매콤한 라조장 소스에 볶아낸 요리는 언제나 옳다! 🌶️ 밥이랑 같이 먹으면 꿀맛 보장! 매운맛 덕후들 모여라!" },
+                { name: "사천짜장", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "매콤한 짜장면의 변신! 🌶️ 사천짜장은 스트레스 해소에 최고! 일반 짜장면이 지루하다면 도전해봐요!" },
+                { name: "간짜장", season: ["all"], weather: ["all", "sunny"], explanation: "갓 볶은 짜장 소스를 면에 부어 먹는 간짜장! 🍜 진한 짜장 맛에 큼지막한 재료까지! 오늘 점심은 무조건 간짜장!" },
+                { name: "쟁반짜장", season: ["all"], weather: ["all", "sunny"], explanation: "푸짐한 해산물과 쫄깃한 면발! 🦐 쟁반짜장은 여러 명이 함께 즐기기 좋은 메뉴예요. 함께 먹으면 더 맛있죠!" },
+                { name: "울면", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "따뜻하고 걸쭉한 울면은 쌀쌀한 날씨에 제격! 🥢 부드러운 목 넘김이 속을 편안하게 해줘요." },
+                { name: "기스면", season: ["all"], weather: ["all", "sunny"], explanation: "깔끔하고 담백한 국물의 기스면! 🍜 부담 없이 즐기기 좋은 중식 면 요리로 추천해요." },
+                { name: "송이덮밥", season: ["all"], weather: ["all", "sunny"], explanation: "향긋한 송이버섯이 가득! 🍄 고급스러운 풍미의 송이덮밥은 특별한 점심 메뉴로 딱이에요." },
+                { name: "게살볶음밥", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 게살이 듬뿍 들어간 볶음밥! 🦀 깔끔하고 고급스러운 맛으로 오늘 점심 스페셜하게!" },
+                { name: "찹쌀탕수육", season: ["all"], weather: ["all", "sunny"], explanation: "겉은 쫄깃! 속은 부드러운 찹쌀탕수육! 💖 일반 탕수육보다 더 쫀득한 식감으로 취향 저격!" },
+                { name: "중국냉면", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "무더운 여름, 시원하고 새콤한 중국냉면으로 더위를 날려봐요! 🍜 땅콩 소스에 겨자까지 더하면 찐맛!" },
+                { name: "팔보채", season: ["all"], weather: ["all", "sunny"], explanation: "다양한 해산물과 채소가 어우러진 팔보채! 🦐 고급스러운 비주얼과 맛으로 특별한 점심을 즐겨봐요." },
+                { name: "깐쇼새우", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤한 소스에 통통한 새우가 가득! 🍤 깐쇼새우는 칠리새우와는 또 다른 매력! 밥반찬으로도 좋아요." },
+                { name: "유니짜장", season: ["all"], weather: ["all", "sunny"], explanation: "부드럽게 갈아낸 짜장 소스! 🍜 아이들과 어른 모두가 좋아하는 유니짜장으로 든든한 점심!" },
+                { name: "고추짬뽕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "더 매운맛을 원한다면 고추짬뽕! 🌶️ 스트레스 확 날려주는 얼큰함에 속까지 시원해져요!" },
+                { name: "해물누룽지탕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "따뜻하고 구수한 누룽지에 해산물과 채소가 듬뿍! 🍲 쌀쌀한 날씨에 몸을 따뜻하게 데워줄 메뉴예요." },
+                { name: "어향가지", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 가지에 매콤한 어향 소스가 찰떡! 🍆 독특하면서도 중독성 있는 맛으로 새로운 경험을!" },
+                { name: "전가복", season: ["all"], weather: ["all", "sunny"], explanation: "각종 해산물과 채소가 가득한 고급 요리! 🥂 특별한 날, 소중한 사람들과 함께 즐겨봐요." },
+                { name: "라조기", season: ["all"], weather: ["all", "sunny"], explanation: "바삭하게 튀긴 닭고기에 매콤한 소스! 🍗 깐풍기와는 또 다른 매력으로 밥반찬으로도 좋아요." },
+                { name: "꿔바로우", season: ["all"], weather: ["all", "sunny"], explanation: "바삭 쫀득! 중국식 찹쌀 탕수육 꿔바로우! 💖 달콤한 소스와 쫄깃한 식감의 조합은 최고!" },
+                { name: "마라탕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "얼얼하고 매콤한 마라탕은 중독성 甲! 🌶️ 원하는 재료 듬뿍 넣고 나만의 마라탕을 즐겨봐요!" },
+                { name: "마라샹궈", season: ["all"], weather: ["all", "sunny"], explanation: "얼얼하고 매콤한 소스에 재료들을 볶아낸 마라샹궈! 🍳 밥반찬으로도, 술안주로도 최고예요!" },
+                { name: "탄탄면", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "고소한 땅콩 소스에 매콤한 국물! 🍜 탄탄면은 색다른 맛을 찾는 당신에게 딱!" },
+                { name: "도삭면", season: ["all"], weather: ["all", "sunny"], explanation: "손으로 직접 깎아 만든 쫄깃한 면발! 🍜 독특한 식감의 도삭면으로 특별한 점심을!" },
+                { name: "냉채족발", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "시원하고 톡 쏘는 냉채족발은 여름 별미! 🐷 쫄깃한 족발에 상큼한 채소가 가득! 더위 날리는 맛!" },
+                { name: "중국식 냉채", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "새콤달콤 시원한 중국식 냉채는 더운 날 입맛을 돋우는 데 최고! 🥗 가볍고 상큼하게 즐겨봐요." },
+                { name: "사천식 라면", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "얼큰하고 매콤한 사천식 라면은 스트레스 해소에 딱! 🍜 뜨끈한 국물이 속까지 시원하게 풀어줘요." },
+                { name: "차오미엔", season: ["all"], weather: ["all", "sunny"], explanation: "다양한 재료와 함께 볶아낸 중국식 볶음면! 🥢 든든하고 맛있는 차오미엔으로 이국적인 점심을!" },
+                { name: "궁보계정", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤한 소스에 닭고기, 땅콩이 어우러진 궁보계정! 🐔 밥반찬으로도, 요리로도 좋아요." },
+                { name: "경장육사", season: ["all"], weather: ["all", "sunny"], explanation: "얇게 채 썬 돼지고기를 춘장에 볶아 건두부에 싸 먹는 경장육사! 🥬 특별한 중식 경험을 원한다면 추천!" }
+            ],
+            japanese: [
+                { name: "돈까스", season: ["all"], weather: ["all", "sunny"], explanation: "겉바속촉 돈까스는 언제나 사랑! 🐷 바삭한 튀김옷에 부드러운 속살, 샐러드까지 완벽한 조합!" },
+                { name: "초밥 세트", season: ["all"], weather: ["hot", "all", "sunny"], explanation: "신선한 초밥은 언제나 옳죠! 🍣 특히 더운 날, 시원한 장국과 함께 즐기면 입안 가득 행복해져요." },
+                { name: "라멘", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "쌀쌀하거나 비 오는 날, 뜨끈한 라멘 국물은 국룰! 🍜 진한 육수에 쫄깃한 면, 차슈까지 완벽 조합!" },
+                { name: "규동", season: ["all"], weather: ["all", "sunny"], explanation: "달콤 짭짤한 소스에 부드러운 소고기가 듬뿍! 🍚 든든하고 빠르게 즐길 수 있는 일본식 덮밥이에요." },
+                { name: "우동", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "탱글탱글 면발에 뜨끈한 국물! 🥢 쌀쌀한 날 속까지 따뜻하게 채워주는 우동 한 그릇 어떠세요?" },
+                { name: "일본식 카레", season: ["all"], weather: ["all", "sunny"], explanation: "부드럽고 향긋한 카레는 언제 먹어도 맛있죠! 🍛 돈까스, 고로케 토핑 추가는 필수! 밥에 쓱쓱 비벼 먹으면 꿀맛!" },
+                { name: "텐동", season: ["all"], weather: ["all", "sunny"], explanation: "바삭한 튀김이 밥 위에 듬뿍! 🍤 간장 소스에 쓱쓱 비벼 먹으면 꿀맛! 텐동은 비주얼도 맛도 최고!" },
+                { name: "가츠동", season: ["all"], weather: ["all", "sunny"], explanation: "돈까스에 달콤 짭짤한 양념, 계란까지! 🍚 든든하고 맛있는 가츠동으로 오늘 점심 해결!" },
+                { name: "오코노미야끼", season: ["all"], weather: ["all", "sunny"], explanation: "철판 위에서 지글지글! 🥢 따뜻하고 푸짐한 오코노미야끼는 친구들과 함께 즐기기 딱 좋은 메뉴예요." },
+                { name: "타코야끼", season: ["all"], weather: ["all", "sunny"], explanation: "문어 쏙쏙 귀여운 타코야끼! 🐙 출출할 때 간식으로도, 메인 메뉴와 함께 즐겨도 좋아요." },
+                { name: "사시미 모듬", season: ["all"], weather: ["hot", "all", "sunny"], explanation: "입에서 살살 녹는 신선한 사시미! 🐟 더운 날에도 시원하게 즐길 수 있는 고급스러운 점심 메뉴예요." },
+                { name: "야끼토리", season: ["all"], weather: ["all", "sunny"], explanation: "다양한 꼬치구이를 맛볼 수 있는 야끼토리! 🍢 맥주 한 잔 곁들이면 완벽한 점심 FLEX!" },
+                { name: "스키야끼", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "달콤 짭짤한 육수에 신선한 재료를 끓여 먹는 스키야끼! 🍲 쌀쌀한 날씨에 몸을 따뜻하게 데워줘요." },
+                { name: "모츠나베", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "쫄깃한 곱창에 얼큰한 국물! 🌶️ 모츠나베는 쌀쌀한 날씨에 든든하게 즐기기 딱 좋은 메뉴예요." },
+                { name: "돈부리", season: ["all"], weather: ["all", "sunny"], explanation: "맛있는 튀김이나 고기가 밥 위에 듬뿍! 🍚 든든하면서도 간편하게 즐길 수 있는 일본식 덮밥이에요." },
+                { name: "나가사키 짬뽕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "뽀얀 국물에 해산물이 가득! 🍜 쌀쌀한 날씨에 속까지 따뜻하게 채워주는 얼큰하고 시원한 짬뽕!" },
+                { name: "벤또 도시락", season: ["all"], weather: ["all", "sunny"], explanation: "다양한 반찬이 깔끔하게 담긴 벤또! 🍱 피크닉 가기 좋은 날, 도시락처럼 즐겨봐요!" },
+                { name: "소바 (냉/온)", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "더운 날엔 시원한 냉소바, 쌀쌀한 날엔 따뜻한 온소바! 🍜 취향에 따라 즐길 수 있는 일본식 면 요리!" },
+                { name: "덴푸라 정식", season: ["all"], weather: ["all", "sunny"], explanation: "바삭하게 튀겨낸 덴푸라는 언제나 옳죠! 🍤 맥주 안주로도, 덮밥 위에 올려도 최고예요!" },
+                { name: "회덮밥", season: ["all"], weather: ["hot", "all", "sunny"], explanation: "신선한 회와 채소에 초고추장 쓱쓱! 🍚 더운 날 입맛 없을 때 시원하게 즐기기 딱 좋아요!" },
+                { name: "장어덮밥", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "기운 뚝 떨어지는 여름, 장어덮밥으로 기력 회복! 💪 달콤 짭짤한 양념에 부드러운 장어가 꿀맛!" },
+                { name: "오니기리 세트", season: ["all"], weather: ["all", "sunny"], explanation: "간편하게 즐길 수 있는 일본식 주먹밥! 🍙 혼밥러에게 최고! 다양한 속 재료로 골라 먹는 재미까지!" },
+                { name: "야끼소바", season: ["all"], weather: ["all", "sunny"], explanation: "푸짐한 해산물과 고기에 쫄깃한 면발! 🥢 일본식 볶음면 야끼소바로 이국적인 점심 즐겨봐요!" },
+                { name: "츠케멘", season: ["all"], weather: ["all", "sunny"], explanation: "진한 육수에 면을 찍어 먹는 츠케멘! 🍜 색다른 라멘을 경험하고 싶다면 도전해봐요!" },
+                { name: "함박스테이크", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 함박스테이크에 달콤한 소스! 🍳 밥과 함께 먹으면 든든하고 맛있는 한 끼! 남녀노소 모두가 좋아해요." },
+                { name: "오야코동", season: ["all"], weather: ["all", "sunny"], explanation: "닭고기와 계란이 어우러진 부드러운 덮밥! 🍚 짭짤한 소스에 쓱쓱 비벼 먹으면 꿀맛!" },
+                { name: "명란파스타", season: ["all"], weather: ["all", "sunny"], explanation: "짭조름한 명란과 고소한 크림의 환상 조합! 🍝 일본식 명란 파스타로 특별한 점심을!" },
+                { name: "스키야끼 정식", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "달콤 짭짤한 국물에 고기와 채소를 즐기는 스키야끼 정식! 🍲 쌀쌀한 날 따뜻하게 몸 녹여봐요." },
+                { name: "히츠마부시", season: ["summer", "all"], weather: ["hot", "all", "sunny"], explanation: "장어덮밥을 세 가지 방법으로 즐기는 히츠마부시! 🥢 특별한 날, 고급스러운 점심으로 추천해요." },
+                { name: "야끼니꾸 정식", season: ["all"], weather: ["all", "sunny"], explanation: "일본식 소고기 구이 야끼니꾸! 🥩 부드러운 고기를 직접 구워 먹는 재미! 든든하고 만족스러운 점심!" },
+                { name: "카이센동", season: ["all"], weather: ["hot", "all", "sunny"], explanation: "신선한 해산물이 듬뿍 올라간 덮밥! 🐟 바다의 맛을 그대로 느낄 수 있는 고급스러운 한 끼!" },
+                { name: "새우튀김", season: ["all"], weather: ["all", "sunny"], explanation: "바삭하고 고소한 새우튀김! 🍤 단독으로도, 다른 메뉴와 곁들여도 좋아요!" },
+                { name: "다마고산도", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 계란 샌드위치 다마고산도! 🥪 간단하면서도 든든하게 즐길 수 있는 일본식 브런치!" },
+                { name: "나베 요리 (모츠나베, 밀푀유나베)", season: ["cold", "winter", "all"], weather: ["cold", "rainy", "all"], explanation: "쌀쌀한 날씨에 따뜻한 국물이 생각난다면 나베 요리! 🍲 끓이면서 먹는 재미까지 완벽!" },
+                { name: "돈코츠 라멘", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "진한 육수의 돈코츠 라멘은 추운 날씨에 최고! 🍜 든든하게 몸을 데워줄 한 그릇이에요." },
+                { name: "미소 라멘", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "구수한 미소 된장 베이스의 라멘! 🍜 담백하면서도 깊은 맛으로 쌀쌀한 날씨에 제격!" },
+                { name: "쇼유 라멘", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "깔끔하고 시원한 간장 베이스의 쇼유 라멘! 🍜 가볍지만 든든하게 즐길 수 있는 메뉴예요." },
+                { name: "시오 라멘", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "소금으로 간을 한 담백한 시오 라멘! 🍜 라멘 본연의 맛을 느끼고 싶다면 추천해요." },
+                { name: "참치마요 덮밥", season: ["all"], weather: ["all", "sunny"], explanation: "고소한 참치마요와 밥의 환상 조합! 🍚 든든하고 익숙한 맛으로 실패 없는 점심을 즐겨봐요." },
+                { name: "연어덮밥 (사케동)", season: ["all"], weather: ["all", "sunny"], explanation: "신선한 연어와 고소한 소스가 어우러진 연어덮밥! 🍣 비주얼도 맛도 완벽한 웰빙 메뉴예요." },
+                { name: "새우튀김 덮밥", season: ["all"], weather: ["all", "sunny"], explanation: "바삭한 새우튀김이 밥 위에 듬뿍! 🍤 달콤 짭짤한 소스와 함께 즐기는 든든한 한 끼!" },
+                { name: "타코야끼 덮밥", season: ["all"], weather: ["all", "sunny"], explanation: "문어 쏙쏙 타코야끼를 밥 위에! 🐙 독특하면서도 맛있는 조합으로 색다른 점심을 즐겨봐요." },
+                { name: "치킨난반", season: ["all"], weather: ["all", "sunny"], explanation: "바삭한 치킨에 달콤한 소스와 타르타르 소스까지! 🍗 밥과 함께 먹으면 든든하고 맛있는 일본식 치킨 요리!" }
+            ],
+            western: [
+                { name: "알리오 올리오 파스타", season: ["all"], weather: ["all", "sunny"], explanation: "마늘과 올리브오일의 깔끔한 조화! 🍝 담백하고 고소한 알리오 올리오로 분위기 있게 점심 즐겨봐요." },
+                { name: "리코타 치즈 샐러드", season: ["all"], weather: ["hot", "all", "sunny"], explanation: "상큼한 리코타 치즈 샐러드는 다이어터에게도, 가볍게 먹고 싶은 날에도 최고! 🥗 신선한 채소 가득!" },
+                { name: "까르보나라 파스타", season: ["all"], weather: ["all", "sunny"], explanation: "고소하고 부드러운 까르보나라 파스타! 🍝 꾸덕한 크림 소스에 베이컨까지! 오늘 점심은 파스타!" },
+                { name: "토마토 리조또", season: ["all"], weather: ["all", "sunny"], explanation: "새콤달콤한 토마토 소스에 고소한 치즈가 듬뿍! 🍅 든든하면서도 맛있는 토마토 리조또!" },
+                { name: "로제 리조또", season: ["all"], weather: ["all", "sunny"], explanation: "크림과 토마토 소스의 환상 조합! 💖 로제 리조또는 부드럽고 풍미 가득한 점심 메뉴로 추천해요." },
+                { name: "새우 필라프", season: ["all"], weather: ["all", "sunny"], explanation: "고슬고슬 볶음밥에 통통한 새우가 듬뿍! 🍤 든든하고 맛있는 새우 필라프로 점심 해결!" },
+                { name: "스테이크", season: ["all"], weather: ["all", "sunny"], explanation: "육즙 가득한 스테이크로 오늘 점심 든든하게! 🥩 특별한 날이나 기분 전환이 필요할 때 최고예요." },
+                { name: "봉골레 파스타", season: ["all"], weather: ["all", "sunny"], explanation: "신선한 조개와 마늘의 풍미가 어우러진 봉골레 파스타! 🍝 깔끔하고 시원한 맛이 일품이에요." },
+                { name: "감베리 로제 파스타", season: ["all"], weather: ["all", "sunny"], explanation: "통통한 새우와 부드러운 로제 소스의 완벽한 조화! 🍝 로제 덕후라면 꼭 먹어봐야 할 메뉴예요." },
+                { name: "고르곤졸라 피자", season: ["all"], weather: ["all", "sunny"], explanation: "고소한 고르곤졸라 치즈에 꿀을 듬뿍! 🍕 단짠의 정석, 고르곤졸라 피자로 달콤한 점심을 즐겨봐요." },
+                { name: "마르게리타 피자", season: ["all"], weather: ["all", "sunny"], explanation: "클래식의 정석! 🍅 신선한 토마토와 바질, 모짜렐라 치즈의 완벽한 조화! 심플하지만 깊은 맛!" },
+                { name: "시저 샐러드", season: ["all"], weather: ["all", "sunny"], explanation: "아삭한 로메인과 고소한 드레싱, 크루통의 환상 조합! 🥗 가볍지만 든든하게 즐길 수 있는 샐러드예요." },
+                { name: "버섯 크림 리조또", season: ["all"], weather: ["cold", "all"], explanation: "고소하고 진한 크림 소스에 향긋한 버섯이 듬뿍! 🍄 쌀쌀한 날씨에 따뜻하게 즐기기 좋은 메뉴예요." },
+                { name: "빠네 파스타", season: ["all"], weather: ["cold", "all"], explanation: "부드러운 크림 파스타를 빵 속에 듬뿍! 🍝 빵까지 소스에 찍어 먹으면 꿀맛! 든든하고 비주얼도 좋아요." },
+                { name: "라자냐", season: ["all"], weather: ["cold", "all"], explanation: "층층이 쌓인 면과 미트 소스, 치즈의 조화! 🧀 든든하고 풍부한 맛의 라자냐로 특별한 점심을!" },
+                { name: "함박 스테이크", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 함박 스테이크에 달콤한 소스! 🍳 남녀노소 누구나 좋아하는 든든한 점심 메뉴예요." },
+                { name: "찹스테이크", season: ["all"], weather: ["all", "sunny"], explanation: "한입 크기로 썰린 스테이크와 채소가 듬뿍! 🥩 달콤 짭짤한 소스에 밥 비벼 먹으면 꿀맛!" },
+                { name: "폭립", season: ["all"], weather: ["all", "sunny"], explanation: "달콤한 바비큐 소스가 발린 부드러운 폭립! 🍖 손으로 잡고 뜯는 재미까지! 오늘 점심은 푸짐하게!" },
+                { name: "치킨 시저 랩", season: ["all"], weather: ["all", "sunny"], explanation: "신선한 채소와 치킨, 시저 드레싱이 또띠아에 쏙! 🌯 간편하면서도 든든하게 즐길 수 있는 메뉴예요." },
+                { name: "브런치 플래터", season: ["all"], weather: ["all", "sunny"], explanation: "다양한 브런치 메뉴를 한 번에! 🍳 주말 여유로운 점심에 딱! 커피와 함께 즐겨봐요." },
+                { name: "에그 베네딕트", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 수란과 홀랜다이즈 소스의 환상 조합! 🍳 고급스러운 브런치 메뉴로 특별한 점심을!" },
+                { name: "프렌치 토스트", season: ["all"], weather: ["all", "sunny"], explanation: "달콤하고 부드러운 프렌치 토스트! 🍞 시럽과 과일을 곁들여 달콤한 점심을 즐겨봐요." },
+                { name: "오믈렛", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 계란 속에 다양한 재료가 가득! 🍳 든든하고 건강하게 즐길 수 있는 오믈렛!" },
+                { name: "미트볼 파스타", season: ["all"], weather: ["all", "sunny"], explanation: "큼지막한 미트볼에 진한 토마토 소스 파스타! 🍝 든든하고 익숙한 맛으로 실패 없는 점심을!" },
+                { name: "페스토 파스타", season: ["all"], weather: ["all", "sunny"], explanation: "향긋한 바질 페스토 소스 파스타! 🌿 신선하고 독특한 맛으로 새로운 파스타를 경험해봐요." },
+                { name: "트러플 파스타", season: ["all"], weather: ["all", "sunny"], explanation: "고급스러운 트러플 향이 가득! 🍝 특별한 날, 풍미 가득한 트러플 파스타로 점심을 즐겨봐요." },
+                { name: "뇨끼", season: ["all"], weather: ["all", "sunny"], explanation: "쫀득한 감자 뇨끼에 부드러운 소스! 🥔 이탈리아 감자 수제비 뇨끼로 특별한 점심을!" },
+                { name: "아란치니", season: ["all"], weather: ["all", "sunny"], explanation: "겉바속촉 이탈리아식 라이스볼 아란치니! 🍚 치즈와 소스가 어우러져 든든하고 맛있어요." },
+                { name: "깔조네", season: ["all"], weather: ["all", "sunny"], explanation: "반달 모양으로 접어 구운 이탈리아식 피자! 🍕 속이 꽉 차서 든든하게 즐길 수 있어요." },
+                { name: "파니니", season: ["all"], weather: ["all", "sunny"], explanation: "따뜻하게 구운 이탈리아식 샌드위치 파니니! 🥪 다양한 속 재료로 든든하고 맛있는 한 끼!" },
+                { name: "포카치아 샌드위치", season: ["all"], weather: ["all", "sunny"], explanation: "쫄깃한 포카치아 빵에 신선한 재료가 가득! 🥪 이탈리아식 샌드위치로 가볍지만 든든하게!" }
+            ],
+            fastfood_and_bunsik: [
+                { name: "수제 햄버거", season: ["all"], weather: ["all", "sunny"], explanation: "패티 육즙 팡팡 터지는 수제 햄버거는 진리! 🍔 프렌치프라이와 콜라까지 완벽한 조합으로 오늘 점심 FLEX!" },
+                { name: "콤비네이션 피자", season: ["all"], weather: ["all", "sunny"], explanation: "클래식은 영원하다! 🍕 푸짐한 콤비네이션 피자로 친구들과 함께 즐거운 점심 파티!" },
+                { name: "후라이드 치킨", season: ["all"], weather: ["all", "sunny"], explanation: "겉바속촉 후라이드 치킨은 언제나 옳죠! 🍗 바삭한 튀김옷에 촉촉한 속살! 스트레스 날리는 맛!" },
+                { name: "클럽 샌드위치", season: ["all"], weather: ["all", "sunny"], explanation: "신선한 재료 가득! 🥪 간단하면서도 든든한 클럽 샌드위치로 가볍게 즐겨봐요." },
+                { name: "소고기 타코", season: ["all"], weather: ["all", "sunny"], explanation: "이국적인 맛을 즐기고 싶다면 소고기 타코! 🌮 신선한 재료에 매콤한 소스까지! 색다른 점심 어때요?" },
+                { name: "쉬림프 케밥", season: ["all"], weather: ["all", "sunny"], explanation: "터키 길거리 음식 케밥! 🍤 든든한 새우와 신선한 채소의 조화! 이국적인 맛으로 여행 온 기분 만끽!" },
+                { name: "치킨 브리또", season: ["all"], weather: ["all", "sunny"], explanation: "밥과 치킨, 채소가 한 번에! 🌯 든든하면서도 간편하게 즐길 수 있는 멕시코식 김밥!" },
+                { name: "서브웨이 샌드위치", season: ["all"], weather: ["all", "sunny"], explanation: "내 맘대로 조합하는 서브웨이 샌드위치! 🥖 건강하고 신선하게, 나만의 커스텀 점심을 즐겨봐요!" },
+                { name: "로제 떡볶이", season: ["all"], weather: ["all", "sunny"], explanation: "크림과 떡볶이의 환상 조합! 🍝 맵찔이도 즐길 수 있는 부드러운 로제 떡볶이로 오늘 점심 FLEX!" },
+                { name: "김치볶음밥", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤 김치볶음밥은 언제나 옳죠! 🍳 계란 프라이까지 올려 먹으면 완벽한 한 끼!" },
+                { name: "오므라이스", season: ["all"], weather: ["all", "sunny"], explanation: "부드러운 계란 이불 덮은 오므라이스! 🍳 달콤한 소스까지 더하면 동심으로 돌아간 기분!" },
+                { name: "떡볶이", season: ["all"], weather: ["all", "sunny"], explanation: "매콤달콤 쫄깃한 떡볶이는 언제나 사랑! 🌶️ 친구들과 함께 즐기기 딱 좋은 국민 간식!" },
+                { name: "순대", season: ["all"], weather: ["all", "sunny"], explanation: "쫄깃한 순대는 떡볶이 국물에 찍먹! 🍢 간, 허파, 염통까지! 취향대로 즐겨봐요." },
+                { name: "튀김", season: ["all"], weather: ["all", "sunny"], explanation: "바삭한 튀김은 떡볶이의 단짝! 🍤 김말이, 야채튀김, 만두튀김 등 다양하게 즐겨봐요." },
+                { name: "어묵탕", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "쌀쌀한 날씨에 뜨끈한 어묵탕 국물은 최고! 🍢 쫄깃한 어묵과 시원한 국물로 몸을 녹여봐요." },
+                { name: "김밥", season: ["all"], weather: ["all", "sunny"], explanation: "간편하고 든든한 김밥은 언제나 옳죠! 🍙 참치, 치즈, 돈까스 등 다양한 종류로 골라 먹는 재미!" },
+                { name: "라면", season: ["all"], weather: ["all", "sunny"], explanation: "얼큰하고 뜨끈한 라면은 스트레스 해소에 최고! 🍜 계란, 파, 콩나물 등 취향대로 토핑 추가!" },
+                { name: "쫄면", season: ["all"], weather: ["hot", "all", "sunny"], explanation: "매콤새콤 쫄깃한 쫄면은 입맛 없을 때 최고! 🌶️ 아삭한 채소와 함께 비벼 먹으면 꿀맛!" },
+                { name: "칼국수", season: ["all"], weather: ["cold", "rainy", "all"], explanation: "뜨끈한 국물에 쫄깃한 면발! 🍜 쌀쌀한 날씨에 속까지 따뜻하게 채워주는 칼국수 한 그릇!" },
+                { name: "만두", season: ["all"], weather: ["all", "sunny"], explanation: "속이 꽉 찬 만두는 언제 먹어도 맛있죠! 🥟 찐만두, 군만두, 물만두 등 다양하게 즐겨봐요." },
+                { name: "핫도그", season: ["all"], weather: ["all", "sunny"], explanation: "겉바속촉 핫도그에 설탕, 케첩, 머스타드 듬뿍! 🌭 추억의 맛 핫도그로 간편하게 즐겨봐요." },
+                { name: "토스트", season: ["all"], weather: ["all", "sunny"], explanation: "달콤하고 바삭한 토스트는 아침 식사로도, 간식으로도 최고! 🍞 계란, 햄, 치즈 등 취향대로 추가!" },
+                { name: "컵밥", season: ["all"], weather: ["all", "sunny"], explanation: "간편하게 즐길 수 있는 컵밥은 혼밥러에게 최고! 🍚 다양한 종류로 골라 먹는 재미까지!" },
+                { name: "주먹밥", season: ["all"], weather: ["all", "sunny"], explanation: "고소한 주먹밥은 간단하게 즐기기 좋아요! 🍙 참치마요, 스팸 등 다양한 속 재료로 취향 저격!" },
+                { name: "닭꼬치", season: ["all"], weather: ["all", "sunny"], explanation: "달콤 짭짤한 소스가 발린 닭꼬치! 🍢 길거리 음식의 대표 주자! 맥주 안주로도 좋아요." },
+                { name: "소떡소떡", season: ["all"], weather: ["all", "sunny"], explanation: "소시지와 떡의 환상 조합! 🍡 매콤달콤한 소스까지 더하면 꿀맛 보장!" },
+                { name: "콘치즈", season: ["all"], weather: ["all", "sunny"], explanation: "고소한 치즈에 달콤한 옥수수가 듬뿍! 🌽 맥주 안주로도, 간식으로도 좋아요." },
+                { name: "감자튀김", season: ["all"], weather: ["all", "sunny"], explanation: "바삭하고 고소한 감자튀김은 언제나 옳죠! 🍟 케첩에 찍어 먹으면 꿀맛!" },
+                { name: "치즈스틱", season: ["all"], weather: ["all", "sunny"], explanation: "쭉쭉 늘어나는 치즈스틱은 사랑! 🧀 겉바속촉 치즈스틱으로 행복한 점심을!" },
+                { name: "팝콘 치킨", season: ["all"], weather: ["all", "sunny"], explanation: "한입 크기 팝콘 치킨은 간편하게 즐기기 좋아요! 🍗 맥주 안주로도, 간식으로도 최고예요." },
+                { name: "치킨 너겟", season: ["all"], weather: ["all", "sunny"], explanation: "바삭하고 고소한 치킨 너겟은 아이들도 좋아하는 메뉴! 🐥 소스에 찍어 먹으면 꿀맛!" },
+                { name: "새우 버거", season: ["all"], weather: ["all", "sunny"], explanation: "통통한 새우 패티에 타르타르 소스! 🍔 새우 버거는 새우 덕후들에게 강추!" },
+                { name: "불고기 버거", season: ["all"], weather: ["all", "sunny"], explanation: "달콤 짭짤한 불고기 패티에 신선한 채소! 🍔 한국인의 입맛에 딱 맞는 불고기 버거!" },
+                { name: "치킨 버거", season: ["all"], weather: ["all", "sunny"], explanation: "바삭한 치킨 패티에 신선한 채소! 🍔 든든하고 맛있는 치킨 버거로 점심 해결!" },
+                { name: "베이컨 치즈 버거", season: ["all"], weather: ["all", "sunny"], explanation: "고소한 베이컨과 치즈, 육즙 가득한 패티! 🍔 풍부한 맛의 베이컨 치즈 버거로 점심 FLEX!" },
+                { name: "피자 조각", season: ["all"], weather: ["all", "sunny"], explanation: "간편하게 즐길 수 있는 피자 조각! 🍕 다양한 토핑으로 골라 먹는 재미까지!" },
+                { name: "스파게티 (패스트푸드점)", season: ["all"], weather: ["all", "sunny"], explanation: "패스트푸드점에서 즐기는 스파게티! 🍝 간단하게 파스타를 즐기고 싶을 때 좋아요." },
+                { name: "샐러드 (패스트푸드점)", season: ["all"], weather: ["all", "sunny"], explanation: "패스트푸드점에서 즐기는 샐러드! 🥗 가볍고 건강하게 점심을 즐기고 싶을 때 좋아요." },
+                { name: "치킨 샐러드", season: ["all"], weather: ["all", "sunny"], explanation: "신선한 채소와 닭가슴살이 듬뿍! 🥗 건강하고 든든하게 즐길 수 있는 치킨 샐러드!" },
+                { name: "핫도그 (미국식)", season: ["all"], weather: ["all", "sunny"], explanation: "소시지에 빵, 그리고 다양한 토핑! 🌭 미국식 핫도그로 이국적인 맛을 즐겨봐요." },
+                { name: "타코벨 (타코, 부리또)", season: ["all"], weather: ["all", "sunny"], explanation: "멕시코 음식 전문점 타코벨! 🌮 부리또, 타코 등 이국적인 맛으로 점심을 즐겨봐요." },
+                { name: "파파이스 치킨", season: ["all"], weather: ["all", "sunny"], explanation: "바삭하고 매콤한 파파이스 치킨! 🍗 독특한 맛으로 치킨 덕후들에게 강추!" },
+                { name: "KFC 치킨", season: ["all"], weather: ["all", "sunny"], explanation: "오리지널 치킨의 맛! 🍗 바삭하고 촉촉한 KFC 치킨으로 든든한 점심을!" }
+            ]
+        };
+
+        // Required DOM elements
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const seasonSelect = document.getElementById('season-select');
+        const weatherSelect = document.getElementById('weather-select');
+        const searchButton = document.getElementById('search-btn');
+        const resetButton = document.getElementById('reset-btn');
+        const recommendedMenuDisplay = document.getElementById('recommended-menu');
+        const menuExplanationDisplay = document.getElementById('menu-explanation');
+        const menuImageDisplay = document.getElementById('menu-image');
+        const loadingSpinner = document.getElementById('loading-spinner'); // Get spinner element
+
+        let currentSelectedCategory = '';
+        let currentRecommendedMenu = null; // Stores the currently recommended menu item
+
+        // Function to set initial state
+        function initializeState() {
+            currentSelectedCategory = '';
+            categoryButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.disabled = false; // Enable buttons
+            });
+            seasonSelect.value = '';
+            seasonSelect.disabled = false; // Enable dropdown
+            weatherSelect.value = '';
+            weatherSelect.disabled = false; // Enable dropdown
+
+            recommendedMenuDisplay.textContent = "카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆";
+            recommendedMenuDisplay.className = 'recommended-menu-text initial'; // Reset to initial styling
+            menuExplanationDisplay.textContent = "";
+            menuImageDisplay.src = ""; // Clear image source
+            menuImageDisplay.classList.add('hidden'); // Hide image
+            menuImageDisplay.classList.remove('fade-in'); // Remove fade-in animation
+
+            searchButton.classList.remove('hidden');
+            searchButton.disabled = false; // Enable 'Get Recommendation' button
+            resetButton.classList.add('hidden');
+
+            loadingSpinner.classList.add('hidden'); // Ensure spinner is hidden on reset
+
+            currentRecommendedMenu = null; // Clear previously recommended menu
+            updateSearchButtonState(); // Update search button state based on current selections
+
+            // Hide comments section and clear comments
+            commentsSection.style.display = 'none';
+            commentTextInput.value = '';
+            submitCommentBtn.disabled = true;
+            clearComments(); // Clear displayed comments
+            if (unsubscribeComments) { // Unsubscribe from previous menu's comments
+                unsubscribeComments();
+                unsubscribeComments = null;
+            }
+        }
+
+        // Function to get a random menu based on filters
+        function getRandomMenu(selectedCategory, selectedSeason, selectedWeather) {
+            let categorySpecificMenus = [];
+
+            // Step 1: Category filtering
+            if (selectedCategory === 'any') {
+                categorySpecificMenus = Object.values(menus).flat(); // Flatten all categories
+            } else if (selectedCategory in menus) {
+                categorySpecificMenus = menus[selectedCategory];
+            } else {
+                return null; // Invalid category
+            }
+
+            if (categorySpecificMenus.length === 0) {
+                return null; // No menus in this category
+            }
+
+            // Prepare scores for filtering. Higher score means better match.
+            // Exact match (e.g., season: ["summer"] and selectedSeason: "summer") gets 2 points.
+            // "all" match (e.g., season: ["all"] and selectedSeason: "summer") gets 1 point.
+            // Penalize if "all" is selected but menu specifically isn't "all" (to prefer specific matches)
+            let bestMatchingMenus = [];
+            let maxScore = -1;
+
+            categorySpecificMenus.forEach(menu => {
+                let score = 0;
+
+                // Season scoring
+                if (menu.season.includes(selectedSeason)) {
+                    score += 2;
+                } else if (menu.season.includes("all")) {
+                    score += 1;
+                }
+                if (selectedSeason === 'all' && !menu.season.includes("all")) {
+                    score -= 0.5; // Slightly penalize if 'all' season is picked but menu isn't 'all'
+                }
+
+                // Weather scoring
+                if (menu.weather.includes(selectedWeather)) {
+                    score += 2;
+                } else if (menu.weather.includes("all")) {
+                    score += 1;
+                }
+                if (selectedWeather === 'all' && !menu.weather.includes("all")) {
+                    score -= 0.5; // Slightly penalize if 'all' weather is picked but menu isn't 'all'
+                }
+
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestMatchingMenus = [menu]; // Reset and add new best match
+                } else if (score === maxScore && score >= 0) { // Add to list if same best score and valid score
+                    bestMatchingMenus.push(menu);
+                }
+            });
+
+            // If no good matches, or if only penalized matches exist, fallback to broader matches
+            if (bestMatchingMenus.length === 0 || maxScore < 0) {
+                // Fallback: Just get any menu from the category, prioritizing "all" conditions
+                let fallbackMenus = categorySpecificMenus.filter(menu =>
+                    (menu.season.includes(selectedSeason) || menu.season.includes("all") || selectedSeason === 'all') &&
+                    (menu.weather.includes(selectedWeather) || menu.weather.includes("all") || selectedWeather === 'all')
+                );
+                if (fallbackMenus.length > 0) {
+                    bestMatchingMenus = fallbackMenus;
+                } else {
+                    // Ultimate fallback: if nothing matches, just pick a random one from the category
+                    bestMatchingMenus = categorySpecificMenus;
+                }
+            }
+
+            if (bestMatchingMenus.length === 0) {
+                return null;
+            }
+
+            const randomIndex = Math.floor(Math.random() * bestMatchingMenus.length);
+            return bestMatchingMenus[randomIndex];
+        }
+
+        // Function to update the state of the search button
+        function updateSearchButtonState() {
+            const isCategorySelected = !!currentSelectedCategory;
+            const isSeasonSelected = !!seasonSelect.value;
+            const isWeatherSelected = !!weatherSelect.value;
+
+            if (isCategorySelected && isSeasonSelected && isWeatherSelected) {
+                searchButton.disabled = false;
+                searchButton.classList.remove('disabled-visual'); // Optional: remove any visual disabled class if you have one
+            } else {
+                searchButton.disabled = true;
+                searchButton.classList.add('disabled-visual'); // Optional: add a visual disabled class
+            }
+        }
+
+        // Function to display recommendation and fetch image
+        async function displayRecommendation() {
+            // Prevent duplicate recommendations if already showing one
+            if (currentRecommendedMenu) {
+                return;
+            }
+
+            const selectedSeason = seasonSelect.value;
+            const selectedWeather = weatherSelect.value;
+
+            // Input validation
+            if (!currentSelectedCategory) {
+                recommendedMenuDisplay.textContent = "먼저 카테고리를 선택해주세요! 😬";
+                recommendedMenuDisplay.className = 'recommended-menu-text error';
+                menuExplanationDisplay.textContent = "";
+                menuImageDisplay.classList.add('hidden');
+                menuImageDisplay.classList.remove('fade-in');
+                menuImageDisplay.src = "";
+                return;
+            }
+
+            if (selectedSeason === "" || selectedWeather === "") {
+                recommendedMenuDisplay.textContent = "계절과 날씨를 모두 선택해주세요! 📅☀️";
+                recommendedMenuDisplay.className = 'recommended-menu-text error';
+                menuExplanationDisplay.textContent = "";
+                menuImageDisplay.classList.add('hidden');
+                menuImageDisplay.classList.remove('fade-in');
+                menuImageDisplay.src = "";
+                return;
+            }
+
+            // Hide previous elements and show spinner
+            recommendedMenuDisplay.classList.remove('fade-in', 'error', 'initial');
+            menuExplanationDisplay.classList.remove('fade-in');
+            menuImageDisplay.classList.add('hidden');
+            menuImageDisplay.classList.remove('fade-in'); // Ensure no stale animation state
+            
+            loadingSpinner.classList.remove('hidden'); // Show spinner
+
+            // Disable all input elements during loading
+            categoryButtons.forEach(btn => btn.disabled = true);
+            seasonSelect.disabled = true;
+            weatherSelect.disabled = true;
+            searchButton.disabled = true;
+
+            // Perform menu recommendation
+            const recommendedMenuItem = getRandomMenu(currentSelectedCategory, selectedSeason, selectedWeather);
+
+            // Force reflow for animation restart if needed (though fade-in handles this)
+            void recommendedMenuDisplay.offsetWidth;
+            void menuExplanationDisplay.offsetWidth;
+            void menuImageDisplay.offsetWidth;
+
+            if (recommendedMenuItem) {
+                currentRecommendedMenu = recommendedMenuItem;
+
+                // Backend server URL for image search
+                // NOTE: This will not work in Canvas preview as it tries to fetch from localhost:5000
+                // For a fully functional preview, a mock API or static image handling would be needed.
+                const backendUrl = `http://localhost:5000/get-menu-image?menu=${encodeURIComponent(currentRecommendedMenu.name)}`;
+
+                try {
+                    const response = await fetch(backendUrl);
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || `Server responded with error: ${response.status}`);
+                    }
+                    const data = await response.json();
+
+                    if (data.imageUrl) {
+                        menuImageDisplay.src = data.imageUrl;
+                        menuImageDisplay.alt = currentRecommendedMenu.name;
+                        menuImageDisplay.classList.remove('hidden');
+                        menuImageDisplay.classList.add('fade-in');
+                        console.log(`Menu '${currentRecommendedMenu.name}' image loaded successfully: ${data.imageUrl}`);
+                    } else {
+                        menuImageDisplay.src = 'https://placehold.co/200x150/FFDDDD/FF0000?text=이미지+없음'; // Placeholder for "image not found"
+                        menuImageDisplay.alt = '이미지를 찾을 수 없습니다.';
+                        menuImageDisplay.classList.remove('hidden');
+                        menuImageDisplay.classList.add('fade-in');
+                        console.warn(`Could not find image for menu '${currentRecommendedMenu.name}' or server response lacked an image URL.`);
+                    }
+                } catch (error) {
+                    console.error('Error loading image:', error);
+                    menuImageDisplay.src = 'https://placehold.co/200x150/DDDDFF/0000FF?text=이미지+로드+실패'; // Placeholder for "image load failed"
+                    menuImageDisplay.alt = '이미지 로드 실패';
+                    menuImageDisplay.classList.remove('hidden');
+                    menuImageDisplay.classList.add('fade-in');
+                } finally {
+                    loadingSpinner.classList.add('hidden'); // Hide spinner after image fetch attempt
+                    // Re-enable elements (only if we are moving to the reset state)
+                    // Note: Elements stay disabled until reset button is clicked to prevent re-picking.
+                }
+
+                recommendedMenuDisplay.textContent = currentRecommendedMenu.name;
+                menuExplanationDisplay.textContent = currentRecommendedMenu.explanation;
+
+                recommendedMenuDisplay.classList.add('fade-in');
+                menuExplanationDisplay.classList.add('fade-in');
+
+                searchButton.classList.add('hidden'); // Hide "Get Recommendation" button
+                resetButton.classList.remove('hidden'); // Show "Reset" button
+
+                // Show comments section and enable comment input
+                commentsSection.style.display = 'block';
+                commentTextInput.disabled = false;
+                submitCommentBtn.disabled = false;
+                loadComments(currentRecommendedMenu.name); // Load comments for the recommended menu
+
+            } else {
+                // No menu found for the given criteria
+                loadingSpinner.classList.add('hidden'); // Hide spinner even if no menu
+                recommendedMenuDisplay.textContent = "이런! 추천할 메뉴가 정말 없네요... 😅";
+                recommendedMenuDisplay.classList.add('error');
+                menuExplanationDisplay.textContent = "선택하신 조건에 맞는 메뉴가 현재 데이터에 부족합니다. 다른 조합을 선택해주세요. 🧐";
+                menuImageDisplay.classList.add('hidden');
+                menuImageDisplay.classList.remove('fade-in');
+                menuImageDisplay.src = "";
+                menuImageDisplay.alt = '추천 메뉴 없음';
+
+                // Re-enable inputs if no menu was found, allowing user to try again
+                categoryButtons.forEach(btn => btn.disabled = false);
+                seasonSelect.disabled = false;
+                weatherSelect.disabled = false;
+                searchButton.disabled = false; // Re-enable for new attempt
+                resetButton.classList.add('hidden'); // Keep reset button hidden
+                updateSearchButtonState(); // Ensure button state is correct after error
+
+                // Hide comments section if no menu is found
+                commentsSection.style.display = 'none';
+                commentTextInput.value = '';
+                submitCommentBtn.disabled = true;
+                clearComments();
+                if (unsubscribeComments) {
+                    unsubscribeComments();
+                    unsubscribeComments = null;
+                }
+            }
+        }
+
+        // Event Listeners
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.disabled) return; // Prevent action if disabled
+
+                if (currentSelectedCategory === button.dataset.category) {
+                    button.classList.remove('active');
+                    currentSelectedCategory = '';
+                } else {
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentSelectedCategory = button.dataset.category;
+                }
+                // Reset displayed content if category selection changes AND no menu is currently recommended
+                if (!currentRecommendedMenu) {
+                    recommendedMenuDisplay.textContent = "카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆";
+                    recommendedMenuDisplay.className = 'recommended-menu-text initial';
+                    menuExplanationDisplay.textContent = "";
+                    menuImageDisplay.classList.add('hidden');
+                    menuImageDisplay.src = "";
+                }
+                // Hide comments section and clear comments if category changes before recommendation
+                commentsSection.style.display = 'none';
+                commentTextInput.value = '';
+                submitCommentBtn.disabled = true;
+                clearComments();
+                if (unsubscribeComments) {
+                    unsubscribeComments();
+                    unsubscribeComments = null;
+                }
+                updateSearchButtonState(); // Update button state
+            });
+        });
+
+        seasonSelect.addEventListener('change', () => {
+            if (!currentRecommendedMenu) {
+                recommendedMenuDisplay.textContent = "카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆";
+                recommendedMenuDisplay.className = 'recommended-menu-text initial';
+                menuExplanationDisplay.textContent = "";
+                menuImageDisplay.classList.add('hidden');
+                menuImageDisplay.src = "";
+            }
+            // Hide comments section and clear comments if filter changes before recommendation
+            commentsSection.style.display = 'none';
+            commentTextInput.value = '';
+            submitCommentBtn.disabled = true;
+            clearComments();
+            if (unsubscribeComments) {
+                unsubscribeComments();
+                unsubscribeComments = null;
+            }
+            updateSearchButtonState(); // Update button state
+        });
+
+        weatherSelect.addEventListener('change', () => {
+            if (!currentRecommendedMenu) {
+                recommendedMenuDisplay.textContent = "카테고리, 계절, 날씨를 모두 선택하고 '메뉴 추천받기!'를 눌러주세요. 👆";
+                recommendedMenuDisplay.className = 'recommended-menu-text initial';
+                menuExplanationDisplay.textContent = "";
+                menuImageDisplay.classList.add('hidden');
+                menuImageDisplay.src = "";
+            }
+            // Hide comments section and clear comments if filter changes before recommendation
+            commentsSection.style.display = 'none';
+            commentTextInput.value = '';
+            submitCommentBtn.disabled = true;
+            clearComments();
+            if (unsubscribeComments) {
+                unsubscribeComments();
+                unsubscribeComments = null;
+            }
+            updateSearchButtonState(); // Update button state
+        });
+
+        searchButton.addEventListener('click', displayRecommendation); // Only recommend on button click
+        resetButton.addEventListener('click', () => {
+    window.location.reload(); // 이 한 줄로 바꾸시면 됩니다
+});
+        submitCommentBtn.addEventListener('click', addComment); // Add comment on button click
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await authenticateAnonymously(); // Authenticate Firebase first
+            initializeState();
+            updateSearchButtonState(); // Set initial state of search button
+        });
+    </script>
+</body>
+</html>
