@@ -1461,11 +1461,12 @@
             updateSearchButtonState(); // Set initial state of search button
         });
         // 모바일 기기 감지 함수 (기존에 없었다면 추가)
+// 모바일 기기 감지 함수 (이 코드가 `<script>` 태그 안에 이미 없다면 이 위치에 추가하세요)
 function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-// searchBtn 클릭 이벤트 리스너 (기존 searchBtn.addEventListener 블록을 이 코드로 대체)
+// searchBtn 클릭 이벤트 리스너
 searchBtn.addEventListener('click', async () => {
     loadingSpinner.style.display = 'block';
     recommendedMenuText.style.display = 'none';
@@ -1478,13 +1479,18 @@ searchBtn.addEventListener('click', async () => {
         const mobileDevice = isMobileDevice(); 
 
         if (mobileDevice) {
+            // 모바일일 때 이미지와 설명을 숨깁니다.
             menuImage.style.display = 'none';
+            menuExplanation.style.display = 'none';
+            
+            // 추천 메뉴 텍스트는 모바일에서도 보입니다.
             recommendedMenuText.textContent = selectedMenu.name;
-            menuExplanation.textContent = selectedMenu.explanation;
-            menuExplanation.style.display = 'block';
+            recommendedMenuText.style.display = 'block';
+            
             loadingSpinner.style.display = 'none';
             resetBtn.classList.remove('hidden');
         } else {
+            // PC일 때 백엔드 API를 통해 이미지를 불러옵니다.
             // 🚨 중요: 아래 'YOUR_PC_IP_ADDRESS' 부분을 PC의 실제 로컬 IP 주소로 변경해야 합니다!
             const backendApiUrl = `http://YOUR_PC_IP_ADDRESS:5000/get-menu-image?menu=${selectedMenu.name}`;
 
@@ -1508,18 +1514,18 @@ searchBtn.addEventListener('click', async () => {
                     resetBtn.classList.remove('hidden');
                 } else {
                     menuImage.style.display = 'none';
+                    menuExplanation.style.display = 'none';
                     recommendedMenuText.textContent = data.message || "해당 메뉴의 이미지를 찾을 수 없습니다.";
                     recommendedMenuText.style.display = 'block';
-                    menuExplanation.style.display = 'none';
                     loadingSpinner.style.display = 'none';
                     resetBtn.classList.remove('hidden');
                 }
             } catch (error) {
                 console.error("API 호출 중 오류 발생:", error);
                 menuImage.style.display = 'none';
+                menuExplanation.style.display = 'none';
                 recommendedMenuText.textContent = `메뉴 추천 중 오류 발생: ${error.message}.`;
                 recommendedMenuText.style.display = 'block';
-                menuExplanation.style.display = 'none';
                 loadingSpinner.style.display = 'none';
                 resetBtn.classList.remove('hidden');
             }
