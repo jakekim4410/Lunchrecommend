@@ -402,6 +402,22 @@
             padding: 0 10px; /* 좌우 패딩 추가 */
         }
 
+        /* 광고를 가운데 정렬하기 위한 ad-banner 스타일 */
+        .ad-banner {
+            width: 320px; /* 카카오 광고의 data-ad-width와 동일하게 설정 */
+            margin: 30px auto 0 auto; /* 위쪽 여백 30px, 좌우 auto로 가운데 정렬, 아래쪽 여백 0 */
+            display: flex; /* 내부 요소들을 Flexbox로 배치 */
+            justify-content: center; /* Flexbox 내부 요소들을 가로 가운데 정렬 */
+            align-items: center; /* Flexbox 내부 요소들을 세로 가운데 정렬 */
+        }
+        
+        /* Kakao Ad Area 자체에 추가적인 스타일이 적용될 경우를 대비 */
+        .kakao_ad_area {
+            display: block !important; /* 혹시 display:none;이 강제로 적용될 경우를 대비 */
+            float: none !important; /* float 속성이 있다면 반드시 제거하여 중앙 정렬 방해 방지 */
+            margin: 0 auto !important; /* ad-banner의 flexbox가 처리하므로 필수는 아님 */
+        }
+
         @keyframes fade-in-up {
             0% { opacity: 0; transform: translateY(30px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -812,13 +828,14 @@
                 <img id="menu-image" class="menu-image hidden" alt="추천 메뉴 이미지">
                 <p id="menu-explanation" class="menu-explanation"></p>
             </section>
-            </div class="ad-banner">
-    <ins class="kakao_ad_area" style="display:none;"
-    data-ad-unit = "DAN-xzgVigY4TzXJ8uxZ"
-    data-ad-width = "320"
-    data-ad-height = "100"></ins>
+    <div class="ad-banner">
+        <ins class="kakao_ad_area" style="display:none;"
+             data-ad-unit="DAN-xzgVigY4TzXJ8uxZ"
+             data-ad-width="320"
+             data-ad-height="100"></ins>
+    </div>
     <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
-</div>
+
         <footer>
             <p>&copy; 2025 점심 메뉴 추천기. All rights reserved. <span class="emoji">🎮</span></p>
         </footer>
